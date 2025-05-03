@@ -13,8 +13,8 @@ const customIcon = new L.icon({
 
 export default function MapView() {
     return (
-        <div className="h-96 w-fill mx-4">
-            <MapContainer center={[-6.012109, 106.048710]} zoom={14} className="h-full w-full">
+        <div className="h-80 w-fill mx-4">
+            <MapContainer center={[-6.012109, 106.048710]} zoom={14} className="h-full w-fill">
                 <TileLayer
                     attribution='© OpenStreetMap contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
