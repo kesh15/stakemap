@@ -20,7 +20,7 @@ export default function MapView() {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Marker position={[-6.012109, 106.048710]} icon={customIcon}>
-                    <Popup>Rumah Sakit Cilegon</Popup>
+                    <Popup>Rumah Sakit Cilegon RS</Popup>
                 </Marker>
                 <Marker position={[-6.013646, 106.050009]} icon={customIcon}>
                     <Popup>SD Cilegon</Popup>
