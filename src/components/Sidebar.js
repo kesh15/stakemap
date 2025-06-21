@@ -15,15 +15,15 @@ export default function Sidebar() {
         </li>
         <li className="mb-3 flex items-center gap-x-2">
             <PeopleIcon sx={{ fontSize: 28 }}/>
-            <a href="/dashboard">Stakeholder</a>
+            <a href="/stakeholder">Daftar Stakeholder</a>
         </li>
         <li className="mb-3 flex items-center gap-x-2">
             <RecentActorsIcon sx={{ fontSize: 28 }}/>
-            <a href="/dashboard">Daftar Proyek</a>
+            <a href="/proyek">Daftar Proyek</a>
         </li>
         <li className="mb-3 flex items-center gap-x-2">
           <MapIcon sx={{ fontSize: 28 }}/>
-          <a href="/dashboard">Pemetaan Wilayah</a>
+          <a href="/wilayah">Pemetaan Wilayah</a>
         </li>
       </ul>
     </aside>
