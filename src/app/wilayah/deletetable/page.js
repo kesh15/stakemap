@@ -3,58 +3,36 @@
 import { useRouter } from "next/navigation";
 import MapsView from "@/components/MapsView";
 import Sidebar from "@/components/Sidebar";
-import ProjectTable from "@/components/ProjectTable";
+import PemetaanTable from "@/components/PemetaanTable";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 
 const dummyData = [
   {
     id: 1,
-    nama: "Cahaya Literasi",
-    kategori: "Sosial",
-    stakeholder: "Walikota",
-    power: 4.5,
-    interest: 5.0,
+    kecamatan: "Kecamatan Cipandan",
+    kelurahan: "Kelurahan Tegalratu",
+    ring: "Ring 1",
   },
   {
     id: 2,
-    nama: "Taman Kencana",
-    kategori: "Sosial",
-    stakeholder: "Lurah, Walikota",
-    power: 4.0,
-    interest: 4.0,
+    kecamatan: "Kecamatan Citangkul",
+    kelurahan: "Kelurahan Kebonjeruk",
+    ring: "Ring 2",
   },
   {
     id: 3,
-    nama: "Lentera Cahaya",
-    kategori: "Sosial",
-    stakeholder: "Sekda",
-    power: 4.0,
-    interest: 4.0,
-  },
-  {
-    id: 4,
-    nama: "Tangan Teknologi",
-    kategori: "Teknologi",
-    stakeholder: "Lurah",
-    power: 4.0,
-    interest: 4.0,
-  },
-  {
-    id: 5,
-    nama: "Kampung Literasi",
-    kategori: "Pendidikan",
-    stakeholder: "Lurah",
-    power: 4.0,
-    interest: 4.0,
+    kecamatan: "Kecamatan Grogol",
+    kelurahan: "Kelurahan Kotasari",
+    ring: "Ring 2",
   },
 ];
 
-export default function ProyekPage() {
+export default function PemetaanWilayahPage() {
   const router = useRouter();
 
-  const handleTambahProyek = () => {
-    router.push("/tambahproyek"); // arahkan ke halaman form tambah proyek
+  const handleTambahWilayah = () => {
+    router.push("/tambahwilayah");
   };
 
   return (
@@ -69,18 +47,18 @@ export default function ProyekPage() {
           {/* SEARCH + BUTTON */}
           <div className="flex justify-between items-center w-full">
             <button
-              onClick={handleTambahProyek}
+              onClick={handleTambahWilayah}
               className="font-semibold flex items-center gap-2 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded mx-4"
             >
               <AddIcon sx={{ fontSize: 20 }} />
-              Tambah Proyek
+              Tambah Wilayah
             </button>
 
             <div className="relative w-96 mx-4">
               <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
               <input
                 type="text"
-                placeholder="Cari nama proyek"
+                placeholder="Cari nama wilayah"
                 className="font-semibold border border-gray-600 text-gray-900 pl-10 pr-3 py-2 rounded w-full"
               />
             </div>
@@ -88,7 +66,7 @@ export default function ProyekPage() {
 
           {/* TABEL */}
           <div className="overflow-x-auto mx-4">
-            <ProjectTable data={dummyData} />
+            <PemetaanTable data={dummyData} />
           </div>
         </div>
       </main>

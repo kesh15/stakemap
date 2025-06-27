@@ -1,3 +1,5 @@
+// komponen kuadran untuk page dashboard
+
 export default function Kuadran() {
   const data = {
     keepSatisfied: 5,

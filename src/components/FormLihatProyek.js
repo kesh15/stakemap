@@ -1,17 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export default function FormProyek() {
+export default function FormLihatProyek() {
   const router = useRouter();
-
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Mencegah reload halaman
-
-    // (Opsional) Validasi atau simpan data ke server di sini
-
-    // Navigasi ke halaman proyek setelah submit
-    router.push("/proyek");
-  };
 
   return (
     <div
@@ -20,14 +11,15 @@ export default function FormProyek() {
     >
       <h2 className="text-2xl font-semibold mb-6">Data Proyek</h2>
 
-      <form className="space-y-5" onSubmit={handleSubmit}>
+      <div className="space-y-5">
         {/* Nama Proyek */}
         <div className="flex items-center">
           <label className="w-1/3">Nama Proyek</label>
           <input
             type="text"
-            placeholder="Masukan nama proyek"
-            className="border w-full p-2 rounded"
+            className="border w-full p-2 rounded bg-gray-100"
+            value="Pembangunan Jalan Utama"
+            readOnly
           />
         </div>
 
@@ -35,9 +27,10 @@ export default function FormProyek() {
         <div className="flex items-center">
           <label className="w-1/3">Alamat Proyek</label>
           <textarea
-            placeholder="Masukan alamat proyek"
-            className="border w-full p-2 rounded"
+            className="border w-full p-2 rounded bg-gray-100"
             rows="2"
+            value="Jl. Raya Merdeka No. 10, Jakarta"
+            readOnly
           />
         </div>
 
@@ -46,8 +39,9 @@ export default function FormProyek() {
           <label className="w-1/3">Kelurahan/Desa</label>
           <input
             type="text"
-            placeholder="Masukan kelurahan/desa"
-            className="border w-full p-2 rounded"
+            className="border w-full p-2 rounded bg-gray-100"
+            value="Gambir"
+            readOnly
           />
         </div>
 
@@ -56,62 +50,68 @@ export default function FormProyek() {
           <label className="w-1/3">Kecamatan</label>
           <input
             type="text"
-            placeholder="Masukan kecamatan"
-            className="border w-full p-2 rounded"
+            className="border w-full p-2 rounded bg-gray-100"
+            value="Gambir"
+            readOnly
           />
         </div>
 
         {/* Kategori Proyek */}
         <div className="flex items-center">
           <label className="w-1/3">Kategori Proyek</label>
-          <select className="border w-full p-2 rounded bg-gray-200">
-            <option>Pilih kategori proyek</option>
+          <select
+            className="border w-full p-2 rounded bg-gray-100"
+            value="Sosial"
+            disabled
+          >
             <option>Sosial</option>
-            <option>Teknologi</option>
-            <option>Pendidikan</option>
           </select>
         </div>
 
         {/* Stakeholder Terlibat */}
         <div className="flex items-center">
-          <label className="w-1/3">Stakeholder yang terlibat</label>
-          <div className="flex w-full">
-            <input
-              type="text"
-              placeholder="Tambahkan stakeholder yang terlibat"
-              className="border w-full p-2 rounded-l"
-            />
-            <button
-              type="button"
-              className="bg-gray-300 text-black px-4 rounded-r"
-            >
-              +
-            </button>
-          </div>
+          <label className="w-1/3">Stakeholder yang Terlibat</label>
+          <input
+            type="text"
+            className="border w-full p-2 rounded bg-gray-100"
+            value="Dinas PU, Masyarakat Sekitar"
+            readOnly
+          />
         </div>
 
         {/* Tanggal Mulai */}
         <div className="flex items-center">
           <label className="w-1/3">Tanggal Mulai Proyek</label>
-          <input type="date" className="border w-full p-2 rounded" />
+          <input
+            type="date"
+            className="border w-full p-2 rounded bg-gray-100"
+            value="2024-01-01"
+            readOnly
+          />
         </div>
 
         {/* Tanggal Berakhir */}
         <div className="flex items-center">
           <label className="w-1/3">Tanggal Berakhir Proyek</label>
-          <input type="date" className="border w-full p-2 rounded" />
+          <input
+            type="date"
+            className="border w-full p-2 rounded bg-gray-100"
+            value="2024-12-31"
+            readOnly
+          />
         </div>
 
-        {/* Tombol Submit */}
+        {/* Tombol Kembali */}
         <div className="flex justify-end pt-4">
           <button
-            type="submit"
+            type="button"
             className="bg-gray-700 hover:bg-gray-800 text-white px-6 py-2 rounded"
+            onClick={() => router.back()}
           >
-            Tambah Proyek
+            Kembali
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Sidebar from '@/components/Sidebar';
-import FormWilayah from '@/components/FormWilayah';
+import Sidebar from "@/components/Sidebar";
+import FormWilayah from "@/components/FormWilayah";
 
 export default function TambahWilayahPage() {
   return (

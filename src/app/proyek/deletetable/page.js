@@ -10,14 +10,6 @@ import SearchIcon from "@mui/icons-material/Search";
 const dummyData = [
   {
     id: 1,
-    nama: "Cahaya Literasi",
-    kategori: "Sosial",
-    stakeholder: "Walikota",
-    power: 4.5,
-    interest: 5.0,
-  },
-  {
-    id: 2,
     nama: "Taman Kencana",
     kategori: "Sosial",
     stakeholder: "Lurah, Walikota",
@@ -25,7 +17,7 @@ const dummyData = [
     interest: 4.0,
   },
   {
-    id: 3,
+    id: 2,
     nama: "Lentera Cahaya",
     kategori: "Sosial",
     stakeholder: "Sekda",
@@ -33,7 +25,7 @@ const dummyData = [
     interest: 4.0,
   },
   {
-    id: 4,
+    id: 3,
     nama: "Tangan Teknologi",
     kategori: "Teknologi",
     stakeholder: "Lurah",
@@ -41,7 +33,7 @@ const dummyData = [
     interest: 4.0,
   },
   {
-    id: 5,
+    id: 4,
     nama: "Kampung Literasi",
     kategori: "Pendidikan",
     stakeholder: "Lurah",

@@ -1,16 +1,16 @@
 "use client";
 
 import Sidebar from "@/components/Sidebar";
-import FormStakeholder from "@/components/FormStakeholder";
+import FormUbahStakeholder from "@/components/FormUbahStakeholder";
 
-export default function TambahStakeholderPage() {
+export default function UbahStakeholderPage() {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
 
       <main className="flex-1 p-6 ml-64 overflow-auto bg-white text-black">
         <div className="max-w-screen-xl mx-auto w-full space-y-4">
-          <FormStakeholder />
+          <FormUbahStakeholder />
         </div>
       </main>
     </div>
