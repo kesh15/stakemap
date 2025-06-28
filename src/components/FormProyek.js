@@ -1,16 +1,39 @@
 "use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function FormProyek() {
   const router = useRouter();
 
+  // Dummy daftar stakeholder
+  const dummyStakeholders = [
+    "Walikota",
+    "Sekda",
+    "Lurah",
+    "Dinas PUPR",
+    "Kantor Tanah",
+    "Polres Cilegon",
+  ];
+
+  const [selectedStakeholders, setSelectedStakeholders] = useState([]);
+
+  const handleStakeholderChange = (nama) => {
+    setSelectedStakeholders((prev) =>
+      prev.includes(nama)
+        ? prev.filter((item) => item !== nama)
+        : [...prev, nama]
+    );
+  };
+
   const handleSubmit = (e) => {
-    e.preventDefault(); // Mencegah reload halaman
+    e.preventDefault();
 
-    // (Opsional) Validasi atau simpan data ke server di sini
+    console.log({
+      selectedStakeholders,
+      // ...data form lainnya
+    });
 
-    // Navigasi ke halaman proyek setelah submit
-    router.push("/proyek");
+    router.push("/analisis");
   };
 
   return (
@@ -72,21 +95,22 @@ export default function FormProyek() {
           </select>
         </div>
 
-        {/* Stakeholder Terlibat */}
-        <div className="flex items-center">
-          <label className="w-1/3">Stakeholder yang terlibat</label>
-          <div className="flex w-full">
-            <input
-              type="text"
-              placeholder="Tambahkan stakeholder yang terlibat"
-              className="border w-full p-2 rounded-l"
-            />
-            <button
-              type="button"
-              className="bg-gray-300 text-black px-4 rounded-r"
-            >
-              +
-            </button>
+        {/* Stakeholder Terlibat (Checkbox) */}
+        <div className="flex items-start">
+          <label className="w-1/3 pt-2">Stakeholder Terlibat</label>
+          <div className="flex flex-wrap gap-4 w-full">
+            {dummyStakeholders.map((nama, index) => (
+              <label key={index} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  value={nama}
+                  checked={selectedStakeholders.includes(nama)}
+                  onChange={() => handleStakeholderChange(nama)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                />
+                {nama}
+              </label>
+            ))}
           </div>
         </div>
 

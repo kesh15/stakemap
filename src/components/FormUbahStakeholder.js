@@ -5,7 +5,32 @@ import { useRouter } from "next/navigation";
 export default function FormUbahStakeholder() {
   const router = useRouter();
 
-  // State untuk form
+  const dummyData = [
+    { id: 1, nama: "Sekda" },
+    { id: 2, nama: "Lurah" },
+    { id: 3, nama: "Dinas PUPR" },
+    { id: 4, nama: "Kantor Tanah" },
+    { id: 5, nama: "Polres Cilegon" },
+  ];
+
+  const kriteriaOptions = {
+    Interest: [
+      "Tertarik dengan kegiatan perusahaan",
+      "Mendukung inisiatif sosial",
+      "Memiliki kepentingan langsung",
+    ],
+    Influence: [
+      "Pengambil keputusan utama",
+      "Memiliki pengaruh terhadap masyarakat",
+      "Pengendali kebijakan",
+    ],
+    Involvement: [
+      "Ikut rapat koordinasi",
+      "Memberikan feedback reguler",
+      "Terlibat dalam pelaksanaan program",
+    ],
+  };
+
   const [nama, setNama] = useState("Walikota");
   const [kontak, setKontak] = useState("081234567890");
   const [alamat, setAlamat] = useState("Jl. Merdeka No. 123, Cilegon");
@@ -16,13 +41,49 @@ export default function FormUbahStakeholder() {
   const [kategori, setKategori] = useState("Pemerintah");
   const [strategi, setStrategi] = useState("Kemitraan");
   const [kegiatan, setKegiatan] = useState("Melakukan sosialisasi pembangunan");
-  const [tindakLanjut, setTindakLanjut] = useState("Mengadakan rapat koordinasi lanjutan");
-  const [keterikatan, setKeterikatan] = useState("Lurah");
+  const [tindakLanjut, setTindakLanjut] = useState(
+    "Mengadakan rapat koordinasi lanjutan"
+  );
+  const [keterikatan, setKeterikatan] = useState(["Sekda"]);
+  const [kriteria, setKriteria] = useState({
+    Interest: "Tertarik dengan kegiatan perusahaan",
+    Influence: "Memiliki pengaruh terhadap masyarakat",
+    Involvement: "Ikut rapat koordinasi",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Proses submit di sini, misalnya API call
+    console.log({
+      nama,
+      kontak,
+      alamat,
+      kelurahan,
+      kecamatan,
+      power,
+      interest,
+      kategori,
+      strategi,
+      kegiatan,
+      tindakLanjut,
+      keterikatan,
+      kriteria,
+    });
     router.push("/stakeholder/pemerintah");
+  };
+
+  const handleKeterikatanChange = (value) => {
+    setKeterikatan((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]
+    );
+  };
+
+  const handleKriteriaChange = (kategori, value) => {
+    setKriteria((prev) => ({
+      ...prev,
+      [kategori]: value,
+    }));
   };
 
   return (
@@ -30,10 +91,10 @@ export default function FormUbahStakeholder() {
       className="bg-white text-black p-8 rounded shadow-xl max-w-6xl mx-auto mt-10"
       style={{ boxShadow: "0 10px 25px rgba(0,0,0,0.3)" }}
     >
-      <h2 className="text-2xl font-semibold mb-6">Data Stakeholder</h2>
+      <h2 className="text-2xl font-semibold mb-6">Ubah Data Stakeholder</h2>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {/* Form Input */}
+        {/* Nama Stakeholder */}
         <div className="flex items-start">
           <label className="w-1/3 pt-2">Nama Stakeholder</label>
           <input
@@ -43,24 +104,24 @@ export default function FormUbahStakeholder() {
             onChange={(e) => setNama(e.target.value)}
           />
         </div>
+
+        {/* Kontak Stakeholder - Angka Saja */}
         <div className="flex items-start">
           <label className="w-1/3 pt-2">Kontak Stakeholder</label>
           <input
             type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
             className="border w-full p-2 rounded"
             value={kontak}
-            onChange={(e) => setKontak(e.target.value)}
+            onChange={(e) => {
+              const angkaHanya = e.target.value.replace(/\D/g, "");
+              setKontak(angkaHanya);
+            }}
           />
         </div>
-        <div className="flex items-start">
-          <label className="w-1/3 pt-2">Alamat Stakeholder</label>
-          <textarea
-            className="border w-full p-2 rounded"
-            rows="2"
-            value={alamat}
-            onChange={(e) => setAlamat(e.target.value)}
-          />
-        </div>
+
+        {/* Kelurahan/Desa */}
         <div className="flex items-start">
           <label className="w-1/3 pt-2">Kelurahan/Desa</label>
           <input
@@ -70,6 +131,8 @@ export default function FormUbahStakeholder() {
             onChange={(e) => setKelurahan(e.target.value)}
           />
         </div>
+
+        {/* Kecamatan */}
         <div className="flex items-start">
           <label className="w-1/3 pt-2">Kecamatan</label>
           <input
@@ -80,96 +143,106 @@ export default function FormUbahStakeholder() {
           />
         </div>
 
+        {/* Alamat */}
+        <div className="flex items-start">
+          <label className="w-1/3 pt-2">Alamat Stakeholder</label>
+          <textarea
+            className="border w-full p-2 rounded"
+            rows="2"
+            value={alamat}
+            onChange={(e) => setAlamat(e.target.value)}
+          />
+        </div>
+
+        {/* Select */}
+        {[["Kategori Stakeholder", kategori, setKategori, ["Pemerintah", "Swasta", "Tokoh Masyarakat"]],
+          ["Strategi Stakeholder", strategi, setStrategi, ["Workshop", "Pendekatan Verbal", "Kemitraan"]]
+        ].map(([label, value, setter, options], index) => (
+          <div key={index} className="flex items-center">
+            <label className="w-1/3">{label}</label>
+            <select
+              className="border w-full p-2 rounded"
+              value={value}
+              onChange={(e) => setter(e.target.value)}
+            >
+              {options.map((opt, i) => (
+                <option key={i}>{opt}</option>
+              ))}
+            </select>
+          </div>
+        ))}
+
+        {/* Kegiatan dan Tindak Lanjut */}
+        {[["Kegiatan Stakeholder", kegiatan, setKegiatan],
+          ["Tindak Lanjut Stakeholder", tindakLanjut, setTindakLanjut]
+        ].map(([label, value, setter], index) => (
+          <div key={index} className="flex items-start">
+            <label className="w-1/3 pt-2">{label}</label>
+            <textarea
+              className="border w-full p-2 rounded"
+              rows="2"
+              value={value}
+              onChange={(e) => setter(e.target.value)}
+            />
+          </div>
+        ))}
+
         {/* Skoring */}
-        <div className="flex items-start">
-          <label className="w-1/3 pt-2">Skoring Power</label>
-          <input
-            type="number"
-            min="0"
-            max="5"
-            step="0.5"
-            className="border w-full p-2 rounded"
-            value={power}
-            onChange={(e) => setPower(e.target.value)}
-          />
-        </div>
+        {[["Skoring Power", power, setPower], ["Skoring Interest", interest, setInterest]].map(
+          ([label, value, setter], index) => (
+            <div key={index} className="flex items-start">
+              <label className="w-1/3 pt-2">{label}</label>
+              <input
+                type="number"
+                min="0"
+                max="5"
+                step="0.5"
+                className="border w-full p-2 rounded"
+                value={value}
+                onChange={(e) => setter(e.target.value)}
+              />
+            </div>
+          )
+        )}
 
-        <div className="flex items-start">
-          <label className="w-1/3 pt-2">Skoring Interest</label>
-          <input
-            type="number"
-            min="0"
-            max="5"
-            step="0.5"
-            className="border w-full p-2 rounded"
-            value={interest}
-            onChange={(e) => setInterest(e.target.value)}
-          />
-        </div>
-
-        {/* Kategori & Strategi */}
-        <div className="flex items-center">
-          <label className="w-1/3">Kategori Stakeholder</label>
-          <select
-            className="border w-full p-2 rounded"
-            value={kategori}
-            onChange={(e) => setKategori(e.target.value)}
-          >
-            <option>Pemerintah</option>
-            <option>Swasta</option>
-            <option>Tokoh Masyarakat</option>
-          </select>
-        </div>
-
-        <div className="flex items-center">
-          <label className="w-1/3">Strategi Stakeholder</label>
-          <select
-            className="border w-full p-2 rounded"
-            value={strategi}
-            onChange={(e) => setStrategi(e.target.value)}
-          >
-            <option>Workshop</option>
-            <option>Pendekatan Verbal</option>
-            <option>Kemitraan</option>
-          </select>
-        </div>
-
-        {/* Kegiatan & Tindak Lanjut */}
-        <div className="flex items-start">
-          <label className="w-1/3 pt-2">Kegiatan Stakeholder</label>
-          <textarea
-            className="border w-full p-2 rounded"
-            rows="2"
-            value={kegiatan}
-            onChange={(e) => setKegiatan(e.target.value)}
-          />
-        </div>
-        <div className="flex items-start">
-          <label className="w-1/3 pt-2">Tindak Lanjut Stakeholder</label>
-          <textarea
-            className="border w-full p-2 rounded"
-            rows="2"
-            value={tindakLanjut}
-            onChange={(e) => setTindakLanjut(e.target.value)}
-          />
-        </div>
+        {/* Kriteria */}
+        {Object.entries(kriteriaOptions).map(([kategori, opsi], index) => (
+          <div key={index} className="flex items-start mb-4">
+            <label className="w-1/3 pt-2">{`Kriteria ${kategori}`}</label>
+            <div className="flex flex-wrap gap-4 w-full">
+              {opsi.map((opt, idx) => (
+                <label key={idx} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name={kategori}
+                    value={opt}
+                    checked={kriteria[kategori] === opt}
+                    onChange={() => handleKriteriaChange(kategori, opt)}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  />
+                  {opt}
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
 
         {/* Keterikatan */}
-        <div className="flex items-center">
-          <label className="w-1/3">Keterikatan Stakeholder</label>
-          <div className="flex w-full">
-            <input
-              type="text"
-              className="border w-full p-2 rounded-l"
-              value={keterikatan}
-              onChange={(e) => setKeterikatan(e.target.value)}
-            />
-            <button
-              type="button"
-              className="bg-gray-300 text-black px-4 rounded-r"
-            >
-              +
-            </button>
+        <div className="flex items-start mb-4">
+          <label className="w-1/3 pt-2">Keterikatan Stakeholder</label>
+          <div className="flex flex-wrap gap-4 w-full">
+            {dummyData.map((stakeholder) => (
+              <label key={stakeholder.id} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  value={stakeholder.nama}
+                  checked={keterikatan.includes(stakeholder.nama)}
+                  onChange={() => handleKeterikatanChange(stakeholder.nama)}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                />
+                {stakeholder.nama}
+              </label>
+            ))}
           </div>
         </div>
 

@@ -22,7 +22,7 @@ export default function ProjectTable({ data }) {
 
   return (
     <>
-      <table className="mt-6 w-full border border-gray-700 text-sm">
+      <table className="mt-2 w-full border border-gray-700 text-sm">
         <thead className="bg-gray-700 text-white">
           <tr>
             <th rowSpan="2" className="p-2 align-middle">

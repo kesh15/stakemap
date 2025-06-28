@@ -67,7 +67,7 @@ export default function ProyekPage() {
           <MapsView />
 
           {/* SEARCH + BUTTON */}
-          <div className="flex justify-between items-center w-full">
+          <div className="flex justify-between items-center w-full pt-2">
             <button
               onClick={handleTambahProyek}
               className="font-semibold flex items-center gap-2 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded mx-4"

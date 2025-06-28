@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 export default function FormStakeholder() {
   const router = useRouter();
 
-   const dummyData = [
+  const dummyData = [
     { id: 1, nama: "Sekda", kategori: "Pemerintah", power: 4.0, interest: 5.0 },
     { id: 2, nama: "Lurah", kategori: "Pemerintah", power: 4.0, interest: 5.0 },
     { id: 3, nama: "Dinas PUPR", kategori: "Pemerintah", power: 3.0, interest: 2.5 },
@@ -41,6 +41,17 @@ export default function FormStakeholder() {
                 placeholder={placeholder}
                 rows="2"
               />
+            ) : label === "Kontak Stakeholder" ? (
+              <input
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                className="border w-full p-2 rounded"
+                placeholder={placeholder}
+                onInput={(e) => {
+                  e.target.value = e.target.value.replace(/\D/g, "");
+                }}
+              />
             ) : (
               <input
                 type={type}
@@ -50,6 +61,7 @@ export default function FormStakeholder() {
             )}
           </div>
         ))}
+
         {/* Kategori & Strategi */}
         <div className="flex items-center">
           <label className="w-1/3">Kategori Stakeholder</label>
@@ -60,6 +72,7 @@ export default function FormStakeholder() {
             <option>Tokoh Masyarakat</option>
           </select>
         </div>
+
         <div className="flex items-center">
           <label className="w-1/3">Strategi Stakeholder</label>
           <select className="border w-full p-2 rounded bg-gray-200">
@@ -69,14 +82,11 @@ export default function FormStakeholder() {
             <option>Kemitraan</option>
           </select>
         </div>
+
         {/* Kegiatan & Tindak Lanjut */}
         {[
           ["Kegiatan Stakeholder", "textarea", "Masukan kegiatan stakeholder"],
-          [
-            "Tindak Lanjut Stakeholder",
-            "textarea",
-            "Masukan tindak lanjut stakeholder",
-          ],
+          ["Tindak Lanjut Stakeholder", "textarea", "Masukan tindak lanjut stakeholder"],
         ].map(([label, type, placeholder], index) => (
           <div key={index} className="flex items-start">
             <label className="w-1/3 pt-2">{label}</label>
@@ -87,6 +97,7 @@ export default function FormStakeholder() {
             />
           </div>
         ))}
+
         {/* Skoring Power */}
         <div className="flex items-start">
           <label className="w-1/3 pt-2">Skoring Power Stakeholder</label>
@@ -99,6 +110,7 @@ export default function FormStakeholder() {
             placeholder="Masukan nilai skoring power (0 - 5)"
           />
         </div>
+
         {/* Skoring Interest */}
         <div className="flex items-start">
           <label className="w-1/3 pt-2">Skoring Interest Stakeholder</label>
@@ -111,39 +123,37 @@ export default function FormStakeholder() {
             placeholder="Masukan nilai skoring interest (0 - 5)"
           />
         </div>
-        
+
         {/* Kriteria */}
         {[
           {
             nama: "Interest",
             opsi: [
-              "Rendah (Kurang Berminat)",
-              "Sedang (Cukup Berminat)",
-              "Tinggi (Sangat Berminat)",
+              "Tertarik dengan kegiatan perusahaan",
+              "Mendukung inisiatif sosial",
+              "Memiliki kepentingan langsung",
             ],
           },
           {
             nama: "Influence",
             opsi: [
-              "Rendah (Pengaruh Kecil)",
-              "Sedang (Pengaruh Cukup)",
-              "Tinggi (Pengaruh Besar)",
+              "Pengambil keputusan utama",
+              "Memiliki pengaruh terhadap masyarakat",
+              "Pengendali kebijakan",
             ],
           },
           {
             nama: "Involvement",
             opsi: [
-              "Rendah (Kurang Terlibat)",
-              "Sedang (Cukup Terlibat)",
-              "Tinggi (Sangat Terlibat)",
+              "Ikut rapat koordinasi",
+              "Memberikan feedback reguler",
+              "Terlibat dalam pelaksanaan program",
             ],
           },
         ].map((kriteria, i) => (
           <div key={i} className="flex items-start mb-4">
-            <label className="w-68 pt-2 font-medium">
-              {`Kriteria ${kriteria.nama}`}
-            </label>
-            <div className="flex gap-12">
+            <label className="w-68 pt-2 font-medium">{`Kriteria ${kriteria.nama}`}</label>
+            <div className="flex gap-8">
               {kriteria.opsi.map((label, idx) => (
                 <label key={idx} className="flex items-center gap-2">
                   <input
@@ -157,24 +167,24 @@ export default function FormStakeholder() {
             </div>
           </div>
         ))}
-{/* Keterikatan */}
-<div className="flex items-start mb-4">
-  <label className="w-68 pt-2 font-medium">Keterikatan Stakeholder</label>
-  <div className="flex gap-8">
-    {dummyData.map((stakeholder) => (
-      <label key={stakeholder.id} className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          name="keterikatan"
-          value={stakeholder.nama}
-          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-        />
-        {stakeholder.nama}
-      </label>
-    ))}
-  </div>
-</div>
 
+        {/* Keterikatan */}
+        <div className="flex items-start mb-4">
+          <label className="w-68 pt-2 font-medium">Keterikatan Stakeholder</label>
+          <div className="flex gap-8">
+            {dummyData.map((stakeholder) => (
+              <label key={stakeholder.id} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  name="keterikatan"
+                  value={stakeholder.nama}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                />
+                {stakeholder.nama}
+              </label>
+            ))}
+          </div>
+        </div>
 
         {/* Tombol Submit */}
         <div className="flex justify-end pt-4">
