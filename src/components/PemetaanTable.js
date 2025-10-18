@@ -17,7 +17,7 @@ export default function PemetaanTable({ data }) {
   const confirmDelete = () => {
     console.log(`Deleted id ${selectedId}`);
     setShowModal(false);
-    router.push("/wilayah/deleted"); // ✅ Redirect ke halaman konfirmasi hapus wilayah
+    router.push("/wilayah/deleted"); // Redirect ke halaman konfirmasi hapus wilayah
   };
 
   return (

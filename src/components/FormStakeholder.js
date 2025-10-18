@@ -17,9 +17,39 @@ export default function FormStakeholder() {
     router.push("/stakeholder/pemerintah");
   };
 
+  const kriteriaData = [
+    {
+      nama: "Interest",
+      opsi: [
+        "Tertarik pada tujuan proyek",
+        "Mendukung setiap program sosial",
+        "Punya kepentingan langsung",
+      ],
+      classname: "kriteria-interest",
+    },
+    {
+      nama: "Influence",
+      opsi: [
+        "Pengambil keputusan utama",
+        "Punya pengaruh pada masyarakat",
+        "Pengendali suatu kebijakan",
+      ],
+      classname: "kriteria-influence",
+    },
+    {
+      nama: "Involvement",
+      opsi: [
+        "Mengikut setiap rapat proyek",
+        "Memberikan masukan secara rutin",
+        "Aktif dalam program",
+      ],
+      classname: "kriteria-involvement",
+    },
+  ];
+
   return (
     <div
-      className="bg-white text-black p-8 rounded shadow-xl max-w-6xl mx-auto mt-10"
+      className="bg-white text-black p-8 rounded shadow-xl max-w-[1170px] mx-auto mt-10"
       style={{ boxShadow: "0 10px 25px rgba(0,0,0,0.3)" }}
     >
       <h2 className="text-2xl font-semibold mb-6">Data Stakeholder</h2>
@@ -125,53 +155,61 @@ export default function FormStakeholder() {
         </div>
 
         {/* Kriteria */}
-        {[
-          {
-            nama: "Interest",
-            opsi: [
-              "Tertarik dengan kegiatan perusahaan",
-              "Mendukung inisiatif sosial",
-              "Memiliki kepentingan langsung",
-            ],
-          },
-          {
-            nama: "Influence",
-            opsi: [
-              "Pengambil keputusan utama",
-              "Memiliki pengaruh terhadap masyarakat",
-              "Pengendali kebijakan",
-            ],
-          },
-          {
-            nama: "Involvement",
-            opsi: [
-              "Ikut rapat koordinasi",
-              "Memberikan feedback reguler",
-              "Terlibat dalam pelaksanaan program",
-            ],
-          },
-        ].map((kriteria, i) => (
-          <div key={i} className="flex items-start mb-4">
-            <label className="w-68 pt-2 font-medium">{`Kriteria ${kriteria.nama}`}</label>
-            <div className="flex gap-8">
-              {kriteria.opsi.map((label, idx) => (
-                <label key={idx} className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name={kriteria.nama}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                  />
-                  {label}
-                </label>
-              ))}
+        {kriteriaData.map((kriteria, i) => (
+          <div key={i} className={`flex items-start mb-4 ${kriteria.classname}`}>
+            <label className="w-69 pt-2 font-medium">{`Kriteria ${kriteria.nama}`}</label>
+            <div className="flex-1">
+              {kriteria.nama === "Interest" ? (
+                // Layout Interest: Horizontal
+                <div className="flex gap-6 flex-wrap">
+                  {kriteria.opsi.map((label, idx) => (
+                    <label key={idx} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        name={kriteria.nama}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                      />
+                      {label}
+                    </label>
+                  ))}
+                </div>
+              ) : kriteria.nama === "Influence" ? (
+                // Layout Influence: Grid 2 Kolom
+                <div className="flex gap-4 flex-wrap">
+                  {kriteria.opsi.map((label, idx) => (
+                    <label key={idx} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        name={kriteria.nama}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                      />
+                      {label}
+                    </label>
+                  ))}
+                </div>
+              ) : (
+                // Layout Involvement: Flex Wrap
+                <div className="flex flex-wrap gap-4">
+                  {kriteria.opsi.map((label, idx) => (
+                    <label key={idx} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        name={kriteria.nama}
+                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                      />
+                      {label}
+                    </label>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))}
 
         {/* Keterikatan */}
-        <div className="flex items-start mb-4">
-          <label className="w-68 pt-2 font-medium">Keterikatan Stakeholder</label>
-          <div className="flex gap-8">
+        <div className="flex items-start mb-4 keterikatan-stakeholder">
+          <label className="w-69 pt-2 font-medium">Keterikatan Stakeholder</label>
+          <div className="flex gap-8 flex-wrap">
             {dummyData.map((stakeholder) => (
               <label key={stakeholder.id} className="flex items-center gap-2">
                 <input

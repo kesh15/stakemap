@@ -7,12 +7,10 @@ export default function FormProyek() {
 
   // Dummy daftar stakeholder
   const dummyStakeholders = [
-    "Walikota",
-    "Sekda",
-    "Lurah",
-    "Dinas PUPR",
-    "Kantor Tanah",
-    "Polres Cilegon",
+    "Pemerintah",
+    "Masyarakat",
+    "Media Massa",
+    "Organisasi Masyarakat",
   ];
 
   const [selectedStakeholders, setSelectedStakeholders] = useState([]);

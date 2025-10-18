@@ -15,7 +15,7 @@ export default function FormWilayah() {
 
   return (
     <div
-      className="bg-white text-black p-8 rounded shadow-xl max-w-9xl mx-auto mt-10"
+      className="bg-white text-black p-8 rounded shadow-xl w-full max-w-[1185px] mx-auto mt-10"
       style={{ boxShadow: "0 10px 25px rgba(0,0,0,0.3)" }}
     >
       <h2 className="text-2xl font-semibold mb-6">Data Wilayah</h2>

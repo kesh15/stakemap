@@ -14,26 +14,26 @@ export default function FormLihatStakeholder() {
 
   const kriteriaOptions = {
     Interest: [
-      "Tertarik dengan kegiatan perusahaan",
-      "Mendukung inisiatif sosial",
-      "Memiliki kepentingan langsung",
+      "Tertarik pada tujuan proyek",
+      "Mendukung setiap program sosial",
+      "Punya kepentingan langsung",
     ],
     Influence: [
       "Pengambil keputusan utama",
-      "Memiliki pengaruh terhadap masyarakat",
-      "Pengendali kebijakan",
+      "Punya pengaruh pada masyarakat",
+      "Pengendali suatu kebijakan",
     ],
     Involvement: [
-      "Ikut rapat koordinasi",
-      "Memberikan feedback reguler",
-      "Terlibat dalam pelaksanaan program",
+      "Mengikut setiap rapat proyek",
+      "Memberikan masukan secara rutin",
+      "Aktif dalam program",
     ],
   };
 
   const selectedKriteria = {
-    Interest: ["Tertarik dengan kegiatan perusahaan"],
-    Influence: ["Memiliki pengaruh terhadap masyarakat"],
-    Involvement: ["Ikut rapat koordinasi"],
+    Interest: ["Tertarik pada tujuan proyek"],
+    Influence: ["Punya pengaruh pada masyarakat"],
+    Involvement: ["Mengikut setiap rapat proyek"],
   };
 
   const keterikatan = ["Sekda", "Lurah"];
@@ -101,8 +101,9 @@ export default function FormLihatStakeholder() {
         </div>
 
         {/* Kegiatan */}
-        {[["Kegiatan Stakeholder", "Melakukan sosialisasi pembangunan"],
-          ["Tindak Lanjut Stakeholder", "Mengadakan rapat koordinasi lanjutan"]
+        {[
+          ["Kegiatan Stakeholder", "Melakukan sosialisasi pembangunan"],
+          ["Tindak Lanjut Stakeholder", "Mengadakan rapat koordinasi lanjutan"],
         ].map(([label, value], index) => (
           <div key={index} className="flex items-start">
             <label className="w-1/3 pt-2">{label}</label>
@@ -136,24 +137,62 @@ export default function FormLihatStakeholder() {
         </div>
 
         {/* Kriteria Read Only */}
-        {Object.entries(kriteriaOptions).map(([kategori, opsi], index) => (
-          <div key={index} className="flex items-start mb-4">
-            <label className="w-1/3 pt-2 font-medium">{`Kriteria ${kategori}`}</label>
-            <div className="flex flex-wrap gap-4 w-full">
-              {opsi.map((opt, idx) => (
-                <label key={idx} className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    checked={selectedKriteria[kategori].includes(opt)}
-                    disabled
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                  />
-                  {opt}
-                </label>
-              ))}
-            </div>
-          </div>
-        ))}
+{Object.entries(kriteriaOptions).map(([namaKriteria, opsiList], i) => (
+  <div key={i} className={`flex items-start mb-4 kriteria-${namaKriteria.toLowerCase()}`}>
+    <label className="w-68 pt-2 font-medium">{`Kriteria ${namaKriteria}`}</label>
+    <div className="flex-1">
+      {namaKriteria === "Interest" ? (
+        // Layout Interest: Horizontal
+        <div className="flex gap-6 flex-wrap">
+          {opsiList.map((label, idx) => (
+            <label key={idx} className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                name={namaKriteria}
+                checked={selectedKriteria[namaKriteria]?.includes(label)}
+                disabled
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+      ) : namaKriteria === "Influence" ? (
+        // Layout Influence: Grid 2 Kolom
+        <div className="flex gap-4 flex-wrap">
+          {opsiList.map((label, idx) => (
+            <label key={idx} className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                name={namaKriteria}
+                checked={selectedKriteria[namaKriteria]?.includes(label)}
+                disabled
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+      ) : (
+        // Layout Involvement: Flex Wrap
+        <div className="flex flex-wrap gap-4">
+          {opsiList.map((label, idx) => (
+            <label key={idx} className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                name={namaKriteria}
+                checked={selectedKriteria[namaKriteria]?.includes(label)}
+                disabled
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+))}
 
         {/* Keterikatan Read Only */}
         <div className="flex items-start mb-4">

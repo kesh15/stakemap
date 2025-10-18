@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
-import MapsView from "@/components/MapsView";
+import MapsViewStakeholder from "@/components/MapsViewStakeholder";
+import PowerInterest from "@/components/PowerInterest";
+import Sociogram from "@/components/Sociogram";
 import KomunikasiStrategis from "@/components/KomunikasiStrategis";
 import DescriptionIcon from "@mui/icons-material/Description";
 
@@ -10,154 +12,85 @@ export default function AnalisisStakeholderPage() {
   const [activeTab, setActiveTab] = useState("Power-Interest");
   const [isEditable, setIsEditable] = useState(false);
 
-  const project = {
+  const [project, setProject] = useState({
     nama: "Cahaya Literasi",
     alamat: "Jl. Kenanga No. 45 blok B.",
     kelurahan: "Ramaju",
     kecamatan: "Karta",
     kategori: "Sosial",
-    stakeholder: "Walikota",
-    mulai: "12-10-2025",
-    berakhir: "12-12-2025",
-  };
+    stakeholder: ["Pemerintah", "Masyarakat"],
+    mulai: "2025-10-12",
+    berakhir: "2025-12-12",
+  });
 
-  const dataPemerintah = [
-    { nama: "Lurah", power: 4.0, interest: 5.0, color: "red" },
-    { nama: "Dinas PUPR", power: 3.0, interest: 2.0, color: "yellow" },
-    { nama: "Kantor Tanah", power: 1.0, interest: 2.0, color: "green" },
+  const stakeholderOptions = [
+    "Pemerintah",
+    "Masyarakat",
+    "Media Massa",
+    "Organisasi Masyarakat",
   ];
 
-  const dataMasyarakat = [
-    { nama: "Kades Cilegon", power: 4.0, interest: 5.0, color: "red" },
-    { nama: "Warga Baru", power: 3.0, interest: 2.0, color: "yellow" },
-    { nama: "Warga Kh. Ishak", power: 1.0, interest: 2.0, color: "green" },
+  const kategoriOptions = [
+    "Sosial",
+    "Teknologi",
+    "Pendidikan",
   ];
+
+  const [dataPemerintah, setDataPemerintah] = useState([
+    { nama: "Lurah", power: 4, interest: 5, color: "red" },
+    { nama: "Dinas PUPR", power: 3, interest: 2, color: "yellow" },
+    { nama: "Kantor Tanah", power: 1, interest: 2, color: "green" },
+  ]);
+
+  const [dataMasyarakat, setDataMasyarakat] = useState([
+    { nama: "Kades Cilegon", power: 4, interest: 5, color: "red" },
+    { nama: "Warga Baru", power: 3, interest: 2, color: "yellow" },
+    { nama: "Warga Kh. Ishak", power: 1, interest: 2, color: "green" },
+  ]);
+
+  const [dataSociogram, setDataSociogram] = useState([
+    { nama: "Walikota", left: "50%", top: "20%" },
+    { nama: "Kantor Tanah", left: "25%", top: "70%" },
+    { nama: "Dinas PUPR", left: "75%", top: "70%" },
+  ]);
 
   const handleTabChange = (tab) => setActiveTab(tab);
 
-  const renderStakeholderTable = (data) => (
-    <table className="mt-6 w-full border border-gray-700 text-sm">
-      <thead className="bg-gray-700 text-white">
-        <tr>
-          <th className="p-2">No</th>
-          <th className="p-2">Nama Stakeholder</th>
-          <th className="p-2">Power</th>
-          <th className="p-2">Interest</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, idx) => (
-          <tr key={idx} className="text-center border-t">
-            <td className="p-2">{idx + 1}</td>
-            <td className="p-2">{item.nama}</td>
-            <td className="p-2">{item.power}</td>
-            <td className="p-2">{item.interest}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-
-  const renderPowerInterestSection = (title, data) => (
-    <div className="mb-8">
-      <h2 className="text-lg font-semibold mb-2">{title}</h2>
-      <div className="flex space-x-6 bg-gray-100 p-4 rounded">
-        {/* Table */}
-        <div className="w-1/2">{renderStakeholderTable(data)}</div>
-
-        {/* Quadrant Chart */}
-        <div className="w-1/2 flex items-center justify-center">
-          {renderQuadrant(data)}
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderQuadrant = (data) => (
-    <div className="relative w-72 h-72 border bg-white">
-      {/* Garis Sumbu */}
-      <div className="absolute top-1/2 left-0 w-full h-0.5 bg-black"></div>
-      <div className="absolute left-1/2 top-0 w-0.5 h-full bg-black"></div>
-
-      {/* Titik-titik stakeholder dengan nama */}
-      {data.map((item, idx) => (
-        <div
-          key={idx}
-          className="absolute flex items-center space-x-1"
-          style={{
-            left: `${item.interest * 15}%`, // Interest → horizontal (X)
-            top: `${(5 - item.power) * 15}%`, // Power → vertical (Y)
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <span
-            className={`inline-block w-4 h-4 rounded-full ${
-              item.color === "red"
-                ? "bg-red-500"
-                : item.color === "yellow"
-                ? "bg-yellow-400"
-                : "bg-green-500"
-            }`}
-            title={item.nama}
-          ></span>
-          <span className="text-xs">{item.nama}</span>
-        </div>
-      ))}
-    </div>
-  );
+  const handleCheckboxChange = (value) => {
+    const updated = project.stakeholder.includes(value)
+      ? project.stakeholder.filter((item) => item !== value)
+      : [...project.stakeholder, value];
+    setProject({ ...project, stakeholder: updated });
+  };
 
   const renderTabContent = () => {
     if (activeTab === "Power-Interest") {
       return (
-        <div className="space-y-8">
-          {renderPowerInterestSection("Pemerintah", dataPemerintah)}
-          {renderPowerInterestSection("Masyarakat", dataMasyarakat)}
-        </div>
+        <>
+          <PowerInterest
+            title="Pemerintah"
+            data={dataPemerintah}
+            onDataChange={setDataPemerintah}
+            isEditable={isEditable}
+          />
+          <PowerInterest
+            title="Masyarakat"
+            data={dataMasyarakat}
+            onDataChange={setDataMasyarakat}
+            isEditable={isEditable}
+          />
+        </>
       );
     } else if (activeTab === "Sociogram") {
       return (
-        <div className="border bg-gray-100 p-6">
-          <h2 className="text-lg font-semibold mb-4">Pemerintah</h2>
-          <div className="relative w-full h-64 bg-white border">
-            {/* Dummy Sociogram */}
-            <div className="absolute left-1/2 top-4 transform -translate-x-1/2">
-              <div className="flex flex-col items-center">
-                <div className="bg-green-500 w-10 h-10 rounded-full flex items-center justify-center text-white">
-                  L
-                </div>
-                <span>Walikota</span>
-              </div>
-            </div>
-            <div className="absolute left-1/4 top-36 transform -translate-x-1/2">
-              <div className="flex flex-col items-center">
-                <div className="bg-green-500 w-10 h-10 rounded-full flex items-center justify-center text-white">
-                  K
-                </div>
-                <span>Kantor Tanah</span>
-              </div>
-            </div>
-            <div className="absolute right-1/4 top-36 transform translate-x-1/2">
-              <div className="flex flex-col items-center">
-                <div className="bg-green-500 w-10 h-10 rounded-full flex items-center justify-center text-white">
-                  D
-                </div>
-                <span>Dinas PUPR</span>
-              </div>
-            </div>
-            {/* Garis koneksi */}
-            <svg className="absolute top-0 left-0 w-full h-full">
-              <line x1="50%" y1="20%" x2="25%" y2="70%" stroke="black" />
-              <line x1="50%" y1="20%" x2="75%" y2="70%" stroke="black" />
-            </svg>
-          </div>
-        </div>
+        <Sociogram
+          data={dataSociogram}
+          onDataChange={setDataSociogram}
+          isEditable={isEditable}
+        />
       );
     } else if (activeTab === "Komunikasi Strategis") {
-      return (
-        <div className="mt-4">
-          <KomunikasiStrategis />
-        </div>
-      );
+      return <KomunikasiStrategis isEditable={isEditable} />;
     }
   };
 
@@ -171,25 +104,21 @@ export default function AnalisisStakeholderPage() {
             Analisis Stakeholder Mapping
           </h1>
 
-          {/* DATA PROYEK */}
-          <div className="space-y-3 mx-4">
-            <div className="flex justify-between items-center mb-4">
-              <h1 className="text-2xl text-white">
-                Analisis Stakeholder Mapping
-              </h1>
-
+          {/* === FORM PROYEK === */}
+          <div className="space-y-4 mx-4">
+            {/* Header Button */}
+            <div className="flex justify-between items-center">
+              <div></div>
               <div className="flex gap-2">
                 <button
-                  className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition"
+                  className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition"
                   onClick={() => setIsEditable(!isEditable)}
                 >
                   {isEditable ? "Simpan" : "Ubah Data"}
                 </button>
                 <button
-                  className="flex items-center gap-2 bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition"
-                  onClick={() => {
-                    alert("Fitur export PDF sedang dikembangkan");
-                  }}
+                  className="flex items-center gap-2 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition"
+                  onClick={() => alert("Fitur export PDF sedang dikembangkan")}
                 >
                   <DescriptionIcon sx={{ fontSize: 20 }} />
                   Cetak sebagai PDF
@@ -197,15 +126,86 @@ export default function AnalisisStakeholderPage() {
               </div>
             </div>
 
-            {Object.entries(project).map(([label, value], idx) => (
-              <div key={idx} className="flex items-center">
-                <label className="w-1/4 capitalize">
-                  {label.replace(/_/g, " ")}
+            {/* Input Text + Dropdown */}
+            {["nama", "alamat", "kelurahan", "kecamatan", "kategori"].map(
+              (field) => (
+                <div key={field} className="flex items-center">
+                  <label className="w-1/4 capitalize">
+                    {field === "nama"
+                      ? "Nama Proyek"
+                      : field === "alamat"
+                      ? "Alamat Proyek"
+                      : field === "kategori"
+                      ? "Kategori Proyek"
+                      : field.charAt(0).toUpperCase() + field.slice(1) + " Proyek"}
+                  </label>
+
+                  {field === "kategori" ? (
+                    <select
+                      disabled={!isEditable}
+                      value={project.kategori}
+                      onChange={(e) =>
+                        setProject({ ...project, kategori: e.target.value })
+                      }
+                      className={`border w-full p-2 rounded ${
+                        isEditable ? "bg-white" : "bg-gray-100"
+                      }`}
+                    >
+                      {kategoriOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type="text"
+                      readOnly={!isEditable}
+                      value={project[field]}
+                      onChange={(e) =>
+                        setProject({ ...project, [field]: e.target.value })
+                      }
+                      className={`border w-full p-2 rounded ${
+                        isEditable ? "bg-white" : "bg-gray-100"
+                      }`}
+                    />
+                  )}
+                </div>
+              )
+            )}
+
+            {/* Checkbox Stakeholder */}
+            <div className="flex items-start">
+              <label className="w-60">Stakeholder Terlibat</label>
+              <div className="flex flex-wrap gap-6">
+                {stakeholderOptions.map((option) => (
+                  <label key={option} className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      disabled={!isEditable}
+                      checked={project.stakeholder.includes(option)}
+                      onChange={() => handleCheckboxChange(option)}
+                      className="w-5 h-5"
+                    />
+                    <span className="text-base">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Input Date */}
+            {["mulai", "berakhir"].map((field) => (
+              <div key={field} className="flex items-center">
+                <label className="w-1/4">
+                  {field === "mulai" ? "Mulai Proyek" : "Berakhir Proyek"}
                 </label>
                 <input
-                  type="text"
+                  type="date"
                   readOnly={!isEditable}
-                  defaultValue={value}
+                  value={project[field]}
+                  onChange={(e) =>
+                    setProject({ ...project, [field]: e.target.value })
+                  }
                   className={`border w-full p-2 rounded ${
                     isEditable ? "bg-white" : "bg-gray-100"
                   }`}
@@ -214,17 +214,16 @@ export default function AnalisisStakeholderPage() {
             ))}
           </div>
 
-          {/* ==== Garis Pembatas ==== */}
-          <div className="border-t-2 border-black-800 my-6 mx-4"></div>
+          {/* === GARIS PEMBATAS === */}
+          <div className="border-t-2 border-black my-6 mx-4"></div>
 
-          {/* ==== Section 2: Analisis ==== */}
+          {/* === SECTION 2 === */}
           <div className="space-y-4">
-            {/* MAP */}
             <div>
-              <MapsView />
+              <MapsViewStakeholder/>
             </div>
 
-            {/* TAB SWITCH */}
+            {/* Tab Switch */}
             <div className="flex items-center justify-between bg-gray-300 rounded-t-lg px-4 py-2 mx-4">
               <div className="flex space-x-2">
                 {["Power-Interest", "Sociogram", "Komunikasi Strategis"].map(
@@ -236,16 +235,13 @@ export default function AnalisisStakeholderPage() {
                       <button
                         key={tab}
                         onClick={() => handleTabChange(tab)}
-                        className={`
-                        px-4 py-2 font-semibold transition
-                        ${
+                        className={`px-4 py-2 font-semibold transition ${
                           isActive
                             ? "bg-black text-white"
                             : "bg-gray-200 text-black"
-                        }
-                        ${isFirst ? "rounded-tl-lg" : ""}
-                        ${isLast ? "rounded-tr-lg" : ""}
-                      `}
+                        } ${isFirst ? "rounded-tl-lg" : ""} ${
+                          isLast ? "rounded-tr-lg" : ""
+                        }`}
                       >
                         {tab}
                       </button>
@@ -262,7 +258,6 @@ export default function AnalisisStakeholderPage() {
               </button>
             </div>
 
-            {/* TAB CONTENT */}
             <div className="mx-4">{renderTabContent()}</div>
           </div>
         </div>

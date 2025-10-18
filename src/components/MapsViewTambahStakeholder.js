@@ -11,7 +11,7 @@ const customIcon = new L.icon({
   popupAnchor: [0, -28],
 });
 
-export default function MapView() {
+export default function MapViewStakeholder() {
   return (
     <div className="h-80 w-298 mx-4 border-2 border-gray-400 rounded-lg overflow-hidden">
       <MapContainer
@@ -24,13 +24,16 @@ export default function MapView() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={[-6.012109, 106.04871]} icon={customIcon}>
-          <Popup>Cahaya Literasi</Popup>
+          <Popup>Dinas PUPR</Popup>
         </Marker>
         <Marker position={[-6.013646, 106.050009]} icon={customIcon}>
-          <Popup>Taman Kencana</Popup>
+          <Popup>Lurah</Popup>
         </Marker>
         <Marker position={[-6.011651, 106.055845]} icon={customIcon}>
-          <Popup>Lentera Cahaya</Popup>
+          <Popup>Sekda</Popup>
+        </Marker>
+        <Marker position={[-6.011631, 106.055860]} icon={customIcon}>
+          <Popup>Walikota</Popup>
         </Marker>
       </MapContainer>
     </div>

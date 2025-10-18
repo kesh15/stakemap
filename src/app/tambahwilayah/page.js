@@ -9,7 +9,7 @@ export default function TambahWilayahPage() {
       <Sidebar />
 
       <main className="flex-1 p-6 ml-64 bg-white overflow-auto">
-        <div className="max-w-screen-lg mx-auto w-full space-y-4">
+        <div className="max-w-[1400px] mx-auto w-full space-y-4">
           <FormWilayah />
         </div>
       </main>

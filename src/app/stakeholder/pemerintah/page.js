@@ -2,7 +2,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import MapsView from "@/components/MapsView";
+import MapsViewStakeholder from "@/components/MapsViewStakeholder"
 import Sidebar from "@/components/Sidebar";
 import StakeholderStats from "@/components/StakeholderStats";
 import StakeholderTable from "@/components/StakeholderTable";
@@ -69,7 +69,7 @@ export default function StakeholderPage() {
         {/* WRAPPER AGAR KONSISTEN LEBARNYA */}
         <div className="max-w-screen-xl mx-auto w-full space-y-4">
           {/* MAP */}
-          <MapsView />
+          <MapsViewStakeholder />
 
           {/* SEARCH + BUTTON */}
           <div className="flex justify-between items-center w-306 pt-2">
