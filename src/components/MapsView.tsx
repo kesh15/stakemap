@@ -4,16 +4,20 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const customIcon = new L.icon({
+const customIcon = L.icon({
   iconUrl: "/icons/MarkerStakeholder.png",
   iconSize: [28, 28],
   iconAnchor: [14, 28],
   popupAnchor: [0, -28],
 });
 
-export default function MapView() {
+interface MapViewProps {
+  className?: string;
+}
+
+export default function MapView({ className }: MapViewProps) {
   return (
-    <div className="h-80 w-298 mx-4 border-2 border-gray-400 rounded-lg overflow-hidden">
+    <div className={`h-80 w-298 mx-4 border-2 border-gray-400 rounded-lg overflow-hidden ${className}`}>
       <MapContainer
         center={[-6.012109, 106.04871]}
         zoom={14}

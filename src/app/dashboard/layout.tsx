@@ -1,6 +1,6 @@
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex bg-[#F2F2F2]">
       <Sidebar />

@@ -1,8 +1,5 @@
 "use client";
 
-import Sidebar from "@/components/Sidebar";
-import FormLihatWilayah from "@/components/FormLihatWilayah";
-
 export default function LihatStakeholderPage() {
   return (
     <div className="flex min-h-screen">
