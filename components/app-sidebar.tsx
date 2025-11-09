@@ -2,10 +2,7 @@
 
 import * as React from "react";
 import {
-  AudioWaveform,
-  Command,
   Frame,
-  GalleryVerticalEnd,
   SquareTerminal,
 } from "lucide-react";
 import {
@@ -49,7 +46,7 @@ const data = {
   projects: [
     {
       name: "Daftar Proyek",
-      url: "/projects",
+      url: "/proyek",
       icon: Frame,
     },
   ],
