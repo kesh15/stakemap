@@ -1,10 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Frame,
-  SquareTerminal,
-} from "lucide-react";
+import { Frame, SquareTerminal } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -24,7 +21,7 @@ const data = {
     email: "designwithkesh@gmail.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  
+
   navMain: [
     {
       title: "Stakeholder",
