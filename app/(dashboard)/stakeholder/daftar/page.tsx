@@ -1,45 +1,26 @@
+"use client";
+
 import { DataTable } from "@/components/data-table";
-import { columns, Payment } from "@/components/dummy-data";
+import { stakeholderColumns } from "@/components/dummy-data";
+import { StakeholderForm } from "@/components/stakeholder/StakeholderForm";
 import { Button } from "@/components/ui/button";
+import { useStakeholderStore } from "@/hooks/store/stakeholder-store";
+import { useState } from "react";
 
-const data: Payment[] = [
-  {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@example.com",
-  },
-  {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@example.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
-    status: "processing",
-    email: "Monserrat44@example.com",
-  },
-  {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@example.com",
-  },
-  {
-    id: "bhqecj4p",
-    amount: 721,
-    status: "failed",
-    email: "carmella@example.com",
-  },
-];
+export default function Page() {
+  const [open, setOpen] = useState(false);
 
-export default async function Page() {
+  const stakeholders = useStakeholderStore((s) => s.stakeholders);
+
   return (
-    <main>
-      <Button>Tambah Stakeholder</Button>
-      <DataTable columns={columns} data={data} />
+    <main className="p-6">
+      <Button onClick={() => setOpen(true)}>Tambah Stakeholder</Button>
+
+      <StakeholderForm open={open} onOpenChange={setOpen} />
+
+      <div className="mt-6">
+        <DataTable columns={stakeholderColumns} data={stakeholders} />
+      </div>
     </main>
   );
 }
