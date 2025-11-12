@@ -4,23 +4,27 @@ import { DataTable } from "@/components/data-table";
 import { stakeholderColumns } from "@/components/dummy-data";
 import { StakeholderForm } from "@/components/stakeholder/StakeholderForm";
 import { Button } from "@/components/ui/button";
-import { useStakeholderStore } from "@/hooks/store/stakeholder-store";
+import { StakeholderType, useStakeholderStore } from "@/hooks/store/stakeholder-store";
+import { StakeholderInput } from "@/schema/stakeholder.schema";
 import { useState } from "react";
 
 export default function Page() {
-  const [open, setOpen] = useState(false);
-
-  const stakeholders = useStakeholderStore((s) => s.stakeholders);
-
+  const { stakeholders, modalOpen, modalMode, selectedStakeholder, setModal } =
+    useStakeholderStore();
   return (
-    <main className="p-6">
-      <Button onClick={() => setOpen(true)}>Tambah Stakeholder</Button>
+    <main className="p-6 space-y-6">
+      <Button onClick={() => setModal(true, "create")}>
+        Tambah Stakeholder
+      </Button>
 
-      <StakeholderForm open={open} onOpenChange={setOpen} />
+      <DataTable columns={stakeholderColumns} data={stakeholders} />
 
-      <div className="mt-6">
-        <DataTable columns={stakeholderColumns} data={stakeholders} />
-      </div>
+      <StakeholderForm
+        open={modalOpen}
+        onOpenChange={(v) => setModal(v)}
+        mode={modalMode}
+        defaultValues={selectedStakeholder as StakeholderInput}
+      />
     </main>
   );
 }

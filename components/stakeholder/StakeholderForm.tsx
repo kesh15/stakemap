@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useStakeholderStore } from "@/hooks/store/stakeholder-store";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,14 +16,21 @@ import {
   StakeholderSchema,
 } from "@/schema/stakeholder.schema";
 
+type StakeholderFormProps = {
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+  mode?: "create" | "read" | "edit";
+  defaultValues?: Partial<StakeholderInput> & { id?: string };
+};
+
 export function StakeholderForm({
   open,
   onOpenChange,
-}: {
-  open: boolean;
-  onOpenChange: (v: boolean) => void;
-}) {
+  mode = "create",
+  defaultValues,
+}: StakeholderFormProps) {
   const addStakeholder = useStakeholderStore((s) => s.addStakeholder);
+  const updateStakeholder = useStakeholderStore((s) => s.updateStakeholder);
 
   const form = useForm<StakeholderInput>({
     resolver: zodResolver(StakeholderSchema),
@@ -54,12 +62,18 @@ export function StakeholderForm({
     formState: { errors },
   } = form;
 
+  // Prefill saat edit / read
+  useEffect(() => {
+    if (defaultValues) reset(defaultValues);
+  }, [defaultValues, reset]);
+
+  const disabled = mode === "read";
   const interestValue = watch("kriteria_interest_stakeholder");
 
   const onSubmit = (data: StakeholderInput) => {
     const submissionData = {
       ...data,
-      id: crypto.randomUUID(),
+      id: defaultValues?.id || crypto.randomUUID(),
       kategori_stakeholder: data.kategori_stakeholder || "-",
       strategi_stakeholder: data.strategi_stakeholder || "-",
       kriteria_influence_stakeholder:
@@ -69,7 +83,11 @@ export function StakeholderForm({
       keterikatan_stakeholder: data.keterikatan_stakeholder || "-",
     };
 
-    addStakeholder(submissionData);
+    if (mode === "edit") {
+      updateStakeholder(submissionData);
+    } else {
+      addStakeholder(submissionData);
+    }
 
     reset();
     onOpenChange(false);
@@ -79,146 +97,87 @@ export function StakeholderForm({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-h-[85vh] sm:max-w-[60vw] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Tambah Stakeholder</DialogTitle>
+          <DialogTitle>
+            {mode === "create"
+              ? "Tambah Stakeholder"
+              : mode === "edit"
+              ? "Edit Stakeholder"
+              : "Detail Stakeholder"}
+          </DialogTitle>
         </DialogHeader>
 
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          {/* GRID */}
+          {/* GRID INPUTS */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex flex-col gap-1">
-              <div className="flex items-start gap-3">
-                <Label className="w-40 mt-2">Nama Stakeholder</Label>
-                <Input className="flex-1" {...register("nama_stakeholder")} />
-              </div>
-              {errors.nama_stakeholder && (
-                <p className="text-red-500 text-sm">
-                  {errors.nama_stakeholder.message}
-                </p>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <div className="flex items-start gap-3">
-                <Label className="w-40 mt-2">Kontak</Label>
-                <Input className="flex-1" {...register("kontak_stakeholder")} />
-              </div>
-              {errors.kontak_stakeholder && (
-                <p className="text-red-500 text-sm">
-                  {errors.kontak_stakeholder.message}
-                </p>
-              )}
-            </div>
-
-            {/* Kelurahan */}
-            <div className="flex flex-col gap-1">
-              <div className="flex items-start gap-3">
-                <Label className="w-40 mt-2">Kelurahan</Label>
-                <Input className="flex-1" {...register("kelurahan")} />
-              </div>
-              {errors.kelurahan && (
-                <p className="text-red-500 text-sm">
-                  {errors.kelurahan.message}
-                </p>
-              )}
-            </div>
-
-            {/* Kecamatan */}
-            <div className="flex flex-col gap-1">
-              <div className="flex items-start gap-3">
-                <Label className="w-40 mt-2">Kecamatan</Label>
-                <Input className="flex-1" {...register("kecamatan")} />
-              </div>
-              {errors.kecamatan && (
-                <p className="text-red-500 text-sm">
-                  {errors.kecamatan.message}
-                </p>
-              )}
-            </div>
-
-            {/* Skoring Power */}
-            <div className="flex flex-col gap-1">
-              <div className="flex items-start gap-3">
-                <Label className="w-40 mt-2">Skoring Power</Label>
-                <Input
-                  type="number"
-                  className="flex-1"
-                  {...register("skoring_power_stakeholder", {
-                    valueAsNumber: true,
-                  })}
-                />
-              </div>
-              {errors.skoring_power_stakeholder && (
-                <p className="text-red-500 text-sm">
-                  {errors.skoring_power_stakeholder.message}
-                </p>
-              )}
-            </div>
-
-            {/* Skoring Interest */}
-            <div className="flex flex-col gap-1">
-              <div className="flex items-start gap-3">
-                <Label className="w-40 mt-2">Skoring Interest</Label>
-                <Input
-                  type="number"
-                  className="flex-1"
-                  {...register("skoring_interest_stakeholder", {
-                    valueAsNumber: true,
-                  })}
-                />
-              </div>
-              {errors.skoring_interest_stakeholder && (
-                <p className="text-red-500 text-sm">
-                  {errors.skoring_interest_stakeholder.message}
-                </p>
-              )}
-            </div>
+            {/* Nama Stakeholder */}
+            <InputField
+              label="Nama Stakeholder"
+              name="nama_stakeholder"
+              register={register}
+              errors={errors}
+              disabled={disabled}
+            />
+            <InputField
+              label="Kontak"
+              name="kontak_stakeholder"
+              register={register}
+              errors={errors}
+              disabled={disabled}
+            />
+            <InputField
+              label="Kelurahan"
+              name="kelurahan"
+              register={register}
+              errors={errors}
+              disabled={disabled}
+            />
+            <InputField
+              label="Kecamatan"
+              name="kecamatan"
+              register={register}
+              errors={errors}
+              disabled={disabled}
+            />
+            <InputField
+              label="Skoring Power"
+              name="skoring_power_stakeholder"
+              register={register}
+              errors={errors}
+              disabled={disabled}
+              type="number"
+            />
+            <InputField
+              label="Skoring Interest"
+              name="skoring_interest_stakeholder"
+              register={register}
+              errors={errors}
+              disabled={disabled}
+              type="number"
+            />
           </div>
 
-          {/* TEXTAREA */}
-          <div className="flex flex-col gap-1">
-            <div className="flex items-start gap-3">
-              <Label className="w-40 mt-2">Alamat</Label>
-              <Textarea
-                className="flex-1"
-                {...register("alamat_stakeholder")}
-              />
-            </div>
-            {errors.alamat_stakeholder && (
-              <p className="text-red-500 text-sm">
-                {errors.alamat_stakeholder.message}
-              </p>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <div className="flex items-start gap-3">
-              <Label className="w-40 mt-2">Kegiatan</Label>
-              <Textarea
-                className="flex-1"
-                {...register("kegiatan_stakeholder")}
-              />
-            </div>
-            {errors.kegiatan_stakeholder && (
-              <p className="text-red-500 text-sm">
-                {errors.kegiatan_stakeholder.message}
-              </p>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <div className="flex items-start gap-3">
-              <Label className="w-40 mt-2">Tindak Lanjut</Label>
-              <Textarea
-                className="flex-1"
-                {...register("tindak_lanjut_stakeholder")}
-              />
-            </div>
-            {errors.tindak_lanjut_stakeholder && (
-              <p className="text-red-500 text-sm">
-                {errors.tindak_lanjut_stakeholder.message}
-              </p>
-            )}
-          </div>
+          {/* TEXTAREAS */}
+          <TextareaField
+            label="Alamat"
+            name="alamat_stakeholder"
+            register={register}
+            errors={errors}
+            disabled={disabled}
+          />
+          <TextareaField
+            label="Kegiatan"
+            name="kegiatan_stakeholder"
+            register={register}
+            errors={errors}
+            disabled={disabled}
+          />
+          <TextareaField
+            label="Tindak Lanjut"
+            name="tindak_lanjut_stakeholder"
+            register={register}
+            errors={errors}
+            disabled={disabled}
+          />
 
           {/* RADIO */}
           <div className="flex flex-col gap-1">
@@ -233,24 +192,22 @@ export function StakeholderForm({
                     val as "kurang" | "cukup" | "baik"
                   )
                 }
+                disabled={disabled}
               >
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem value="kurang" id="interest1" />
-                  <Label htmlFor="interest1">Kurang baik</Label>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem value="cukup" id="interest2" />
-                  <Label htmlFor="interest2">Cukup</Label>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem value="baik" id="interest3" />
-                  <Label htmlFor="interest3">Sangat baik</Label>
-                </div>
+                {["kurang", "cukup", "baik"].map((v, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <RadioGroupItem value={v} id={`interest-${v}`} />
+                    <Label htmlFor={`interest-${v}`}>
+                      {v === "kurang"
+                        ? "Kurang Baik"
+                        : v === "cukup"
+                        ? "Cukup"
+                        : "Sangat Baik"}
+                    </Label>
+                  </div>
+                ))}
               </RadioGroup>
             </div>
-
             {errors.kriteria_interest_stakeholder && (
               <p className="text-red-500 text-sm">
                 {errors.kriteria_interest_stakeholder.message}
@@ -258,11 +215,53 @@ export function StakeholderForm({
             )}
           </div>
 
-          <Button type="submit" className="w-full">
-            Simpan
-          </Button>
+          {mode !== "read" && (
+            <Button type="submit" className="w-full">
+              {mode === "edit" ? "Update" : "Simpan"}
+            </Button>
+          )}
         </form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function InputField({
+  label,
+  name,
+  register,
+  errors,
+  disabled,
+  type = "text",
+}: any) {
+  return (
+    <div className="flex flex-col gap-1">
+      <div className="flex items-start gap-3">
+        <Label className="w-40 mt-2">{label}</Label>
+        <Input
+          type={type}
+          className="flex-1"
+          {...register(name, type === "number" ? { valueAsNumber: true } : {})}
+          disabled={disabled}
+        />
+      </div>
+      {errors[name] && (
+        <p className="text-red-500 text-sm">{errors[name]?.message}</p>
+      )}
+    </div>
+  );
+}
+
+function TextareaField({ label, name, register, errors, disabled }: any) {
+  return (
+    <div className="flex flex-col gap-1">
+      <div className="flex items-start gap-3">
+        <Label className="w-40 mt-2">{label}</Label>
+        <Textarea className="flex-1" {...register(name)} disabled={disabled} />
+      </div>
+      {errors[name] && (
+        <p className="text-red-500 text-sm">{errors[name]?.message}</p>
+      )}
+    </div>
   );
 }
