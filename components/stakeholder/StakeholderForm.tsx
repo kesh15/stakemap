@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useStakeholderStore } from "@/hooks/store/stakeholder-store";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
@@ -15,6 +14,7 @@ import {
   StakeholderInput,
   StakeholderSchema,
 } from "@/schema/stakeholder.schema";
+import { useStakeholderStore } from "@/store/stakeholder-store";
 
 type StakeholderFormProps = {
   open: boolean;
@@ -64,8 +64,28 @@ export function StakeholderForm({
 
   // Prefill saat edit / read
   useEffect(() => {
-    if (defaultValues) reset(defaultValues);
-  }, [defaultValues, reset]);
+    if (mode === "create") {
+      reset({
+        nama_stakeholder: "",
+        kontak_stakeholder: "",
+        alamat_stakeholder: "",
+        kelurahan: "",
+        kecamatan: "",
+        skoring_power_stakeholder: 0,
+        skoring_interest_stakeholder: 0,
+        kegiatan_stakeholder: "",
+        tindak_lanjut_stakeholder: "",
+        kriteria_interest_stakeholder: undefined,
+        kategori_stakeholder: "-",
+        strategi_stakeholder: "-",
+        kriteria_influence_stakeholder: "-",
+        kriteria_involvement_stakeholder: "-",
+        keterikatan_stakeholder: "-",
+      });
+    } else if (defaultValues) {
+      reset(defaultValues);
+    }
+  }, [mode, defaultValues, reset]);
 
   const disabled = mode === "read";
   const interestValue = watch("kriteria_interest_stakeholder");
@@ -233,7 +253,14 @@ function InputField({
   errors,
   disabled,
   type = "text",
-}: any) {
+}: {
+  label: string;
+  name: keyof StakeholderInput;
+  register: UseFormRegister<StakeholderInput>;
+  errors: FieldErrors<StakeholderInput>;
+  disabled?: boolean;
+  type?: "text" | "number";
+}) {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-start gap-3">
@@ -252,7 +279,19 @@ function InputField({
   );
 }
 
-function TextareaField({ label, name, register, errors, disabled }: any) {
+function TextareaField({
+  label,
+  name,
+  register,
+  errors,
+  disabled,
+}: {
+  label: string;
+  name: keyof StakeholderInput;
+  register: UseFormRegister<StakeholderInput>;
+  errors: FieldErrors<StakeholderInput>;
+  disabled?: boolean;
+}) {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-start gap-3">
