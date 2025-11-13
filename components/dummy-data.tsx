@@ -10,9 +10,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import {
-  StakeholderType,
   useStakeholderStore,
-} from "@/hooks/store/stakeholder-store";
+} from "@/store/stakeholder-store";
+import { StakeholderType } from "@/types/stakeholder";
 
 export const stakeholderColumns: ColumnDef<StakeholderType>[] = [
   {
@@ -50,8 +50,7 @@ export const stakeholderColumns: ColumnDef<StakeholderType>[] = [
   },
 ];
 
-
-const StakeholderAction = ({data}: {data: StakeholderType}) => {
+const StakeholderAction = ({ data }: { data: StakeholderType }) => {
   const setModal = useStakeholderStore((s) => s.setModal);
   const deleteStakeholder = useStakeholderStore((s) => s.removeStakeholder);
 
@@ -76,4 +75,4 @@ const StakeholderAction = ({data}: {data: StakeholderType}) => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
