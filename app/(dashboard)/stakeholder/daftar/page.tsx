@@ -1,11 +1,11 @@
 "use client";
 
 import { DataTable } from "@/components/data-table";
-import { stakeholderColumns } from "@/components/dummy-data";
 import { StakeholderForm } from "@/components/stakeholder/StakeholderForm";
 import { Button } from "@/components/ui/button";
-import { useStakeholderStore } from "@/store/stakeholder-store";
 import { StakeholderInput } from "@/schema/stakeholder.schema";
+import { stakeholderColumns } from "@/components/stakeholder/stakeholder-columns";
+import { useStakeholderStore } from "@/store/stakeholder-store";
 
 export default function Page() {
   const { stakeholders, modalOpen, modalMode, selectedStakeholder, setModal } =

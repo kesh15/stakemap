@@ -1,18 +1,16 @@
 "use client";
 
+import { useStakeholderStore } from "@/store/stakeholder-store";
+import { StakeholderType } from "@/types/stakeholder";
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "./ui/button";
-import { MoreHorizontal } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import {
-  useStakeholderStore,
-} from "@/store/stakeholder-store";
-import { StakeholderType } from "@/types/stakeholder";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { MoreHorizontal } from "lucide-react";
 
 export const stakeholderColumns: ColumnDef<StakeholderType>[] = [
   {
