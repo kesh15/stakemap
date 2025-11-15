@@ -95,6 +95,7 @@ export function StakeholderForm({
       id: defaultValues?.id || crypto.randomUUID(),
       kategori_stakeholder: data.kategori_stakeholder || "-",
       strategi_stakeholder: data.strategi_stakeholder || "-",
+      kriteria_interest_stakeholder: data.kriteria_interest_stakeholder || "-",
       kriteria_influence_stakeholder:
         data.kriteria_influence_stakeholder || "-",
       kriteria_involvement_stakeholder:

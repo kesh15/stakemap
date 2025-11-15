@@ -20,15 +20,17 @@ export const StakeholderSchema = z.object({
   kegiatan_stakeholder: z.string().min(1, "Kegiatan wajib diisi"),
   tindak_lanjut_stakeholder: z.string().min(1, "Tindak lanjut wajib diisi"),
 
-  kriteria_interest_stakeholder: z.enum(["kurang", "cukup", "baik"], {
-    message: "Pilih salah satu",
-  }),
+  kriteria_interest_stakeholder: z
+    .enum(["kurang", "cukup", "baik"], {
+      message: "Pilih salah satu",
+    })
+    .optional(),
 
-  kategori_stakeholder: z.string().default("-"),
-  strategi_stakeholder: z.string().default("-"),
-  kriteria_influence_stakeholder: z.string().default("-"),
-  kriteria_involvement_stakeholder: z.string().default("-"),
-  keterikatan_stakeholder: z.string().default("-"),
+  kategori_stakeholder: z.string().optional(),
+  strategi_stakeholder: z.string().optional(),
+  kriteria_influence_stakeholder: z.string().optional(),
+  kriteria_involvement_stakeholder: z.string().optional(),
+  keterikatan_stakeholder: z.string().optional(),
 });
 
 export type StakeholderFormData = z.infer<typeof StakeholderSchema>;
