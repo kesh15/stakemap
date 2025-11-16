@@ -2,6 +2,17 @@
 
 import { ProjectType } from "@/types/project";
 import { ColumnDef } from "@tanstack/react-table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { MoreHorizontal } from "lucide-react";
+import { useProjectStore } from "@/store/project-store";
+import { useState } from "react";
+import { ProyekForm } from "./ProyekForm";
 
 export const projectColumns: ColumnDef<ProjectType>[] = [
   {
@@ -51,4 +62,56 @@ export const projectColumns: ColumnDef<ProjectType>[] = [
       return avg.toFixed(2);
     },
   },
+  {
+    id: "actions",
+    enableHiding: false,
+    cell: ({ row }) => {
+      const project = row.original;
+
+      return <ProjectAction data={project} />;
+    },
+  },
 ];
+
+const ProjectAction = ({ data }: { data: ProjectType }) => {
+  const deleteProject = useProjectStore((s) => s.removeProject);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [mode, setMode] = useState<"read" | "edit">("read");
+
+  const handleView = () => {
+    setMode("read");
+    setOpenDialog(true);
+  };
+
+  const handleEdit = () => {
+    setMode("edit");
+    setOpenDialog(true);
+  };
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={handleView}>Lihat Data</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleEdit}>Ubah Data</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => deleteProject(data.id)}>
+            Hapus Data
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <ProyekForm
+        open={openDialog}
+        onOpenChange={setOpenDialog}
+        mode={mode}
+        data={data}
+      />
+    </>
+  );
+};
