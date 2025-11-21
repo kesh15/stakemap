@@ -1,7 +1,7 @@
 "use client";
 import "leaflet/dist/leaflet.css";
 import { DataTable } from "@/components/data-table";
-import { projectColumns } from "@/components/proyek/proyek-columns";
+import { projectColumns } from "@/components/proyek/project-columns";
 import { Button } from "@/components/ui/button";
 import { useProjectStore } from "@/store/project-store";
 import {
@@ -12,7 +12,7 @@ import {
   TileLayer,
   useMap,
 } from "react-leaflet";
-import { ProyekForm } from "@/components/proyek/ProyekForm";
+import { ProjectForm } from "@/components/proyek/ProjectForm";
 import { useState, useEffect } from "react";
 import L from "leaflet";
 import { ProjectType } from "@/types/project";
@@ -142,7 +142,7 @@ export default function Home() {
         data={projects}
         onRowClick={handleRowClick}
       />
-      <ProyekForm open={open} onOpenChange={setOpen} />
+      <ProjectForm open={open} onOpenChange={setOpen} />
     </main>
   );
 }

@@ -12,7 +12,7 @@ import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { useProjectStore } from "@/store/project-store";
 import { useState } from "react";
-import { ProyekForm } from "./ProyekForm";
+import { ProjectForm } from "./ProjectForm";
 
 export const projectColumns: ColumnDef<ProjectType>[] = [
   {
@@ -106,7 +106,7 @@ const ProjectAction = ({ data }: { data: ProjectType }) => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <ProyekForm
+      <ProjectForm
         open={openDialog}
         onOpenChange={setOpenDialog}
         mode={mode}

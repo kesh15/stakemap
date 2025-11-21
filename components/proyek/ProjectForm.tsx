@@ -3,7 +3,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProjectSchema, ProjectFormData } from "@/schema/proyek.schema";
+import { ProjectSchema, ProjectFormData } from "@/schema/project.schema";
 import { Field, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
@@ -31,18 +31,18 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useProjectStore } from "@/store/project-store";
 import { ProjectType } from "@/types/project";
 
-type ProyekFormProps = {
+type ProjectFormProps = {
   open: boolean;
   onOpenChange: (v: boolean) => void;
   mode?: "create" | "read" | "edit";
   data?: ProjectType | null;
 };
-export function ProyekForm({
+export function ProjectForm({
   open,
   onOpenChange,
   mode = "create",
   data = null,
-}: ProyekFormProps) {
+}: ProjectFormProps) {
   const form = useForm<ProjectFormData>({
     resolver: zodResolver(ProjectSchema),
     defaultValues: {
