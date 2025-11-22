@@ -2,7 +2,17 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First try to install Node Version Manager: 
+https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
+```bash
+nvm use
+# or install mannualy
+v24.11.0
+# install node modules
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -14,11 +24,12 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+I use JSON Server to act like database and API:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run json-server
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 
