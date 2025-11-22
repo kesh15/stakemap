@@ -1,0 +1,100 @@
+{
+  "stakeholders": [
+    {
+      "id": "b7dd9145-4be5-481d-bdba-1ef9fc1426fe",
+      "kategori_stakeholder": "-",
+      "strategi_stakeholder": "-",
+      "kriteria_interest_stakeholder": "cukup",
+      "kriteria_influence_stakeholder": "-",
+      "kriteria_involvement_stakeholder": "-",
+      "keterikatan_stakeholder": "-",
+      "nama_stakeholder": "tambah ahh",
+      "kontak_stakeholder": "123123",
+      "alamat_stakeholder": "satu",
+      "kelurahan": "baru baru",
+      "kecamatan": "batu",
+      "skoring_power_stakeholder": 20,
+      "skoring_interest_stakeholder": 20,
+      "kegiatan_stakeholder": "ua",
+      "tindak_lanjut_stakeholder": "asdasd"
+    },
+    {
+      "id": "addf5980-bbdf-4b34-bade-64da4f646fe7",
+      "kategori_stakeholder": "-",
+      "strategi_stakeholder": "-",
+      "kriteria_interest_stakeholder": "cukup",
+      "kriteria_influence_stakeholder": "-",
+      "kriteria_involvement_stakeholder": "-",
+      "keterikatan_stakeholder": "-",
+      "nama_stakeholder": "coba untuk relasi",
+      "kontak_stakeholder": "0812391231231",
+      "alamat_stakeholder": "tesss",
+      "kelurahan": "Kelurahan Pasar Rebo",
+      "kecamatan": "Baru",
+      "skoring_power_stakeholder": 90,
+      "skoring_interest_stakeholder": 80,
+      "kegiatan_stakeholder": "tess",
+      "tindak_lanjut_stakeholder": "asdasdasd"
+    }
+  ],
+  "projects": [
+    {
+      "id": "fcad4a5f-4439-4f4c-9948-5eea702de8ef",
+      "nama_proyek": "asdasd",
+      "alamat_proyek": "asssss",
+      "koordinat": "-6.265132525008734, 106.88406596868309",
+      "radius": 200,
+      "kategori_proyek": "Pemerintahan",
+      "stakeholder_terlibat": [
+        {
+          "id": "b7dd9145-4be5-481d-bdba-1ef9fc1426fe",
+          "kategori_stakeholder": "-",
+          "strategi_stakeholder": "-",
+          "kriteria_interest_stakeholder": "cukup",
+          "kriteria_influence_stakeholder": "-",
+          "kriteria_involvement_stakeholder": "-",
+          "keterikatan_stakeholder": "-",
+          "nama_stakeholder": "tambah ahh",
+          "kontak_stakeholder": "123123",
+          "alamat_stakeholder": "satu",
+          "kelurahan": "baru baru",
+          "kecamatan": "batu",
+          "skoring_power_stakeholder": 20,
+          "skoring_interest_stakeholder": 20,
+          "kegiatan_stakeholder": "ua",
+          "tindak_lanjut_stakeholder": "asdasd"
+        },
+        {
+          "id": "addf5980-bbdf-4b34-bade-64da4f646fe7",
+          "kategori_stakeholder": "-",
+          "strategi_stakeholder": "-",
+          "kriteria_interest_stakeholder": "cukup",
+          "kriteria_influence_stakeholder": "-",
+          "kriteria_involvement_stakeholder": "-",
+          "keterikatan_stakeholder": "-",
+          "nama_stakeholder": "coba untuk relasi",
+          "kontak_stakeholder": "0812391231231",
+          "alamat_stakeholder": "tesss",
+          "kelurahan": "Kelurahan Pasar Rebo",
+          "kecamatan": "Baru",
+          "skoring_power_stakeholder": 90,
+          "skoring_interest_stakeholder": 80,
+          "kegiatan_stakeholder": "tess",
+          "tindak_lanjut_stakeholder": "asdasdasd"
+        }
+      ],
+      "stakeholder_relations": [
+        {
+          "from": "b7dd9145-4be5-481d-bdba-1ef9fc1426fe",
+          "to": "addf5980-bbdf-4b34-bade-64da4f646fe7"
+        },
+        {
+          "from": "addf5980-bbdf-4b34-bade-64da4f646fe7",
+          "to": "b7dd9145-4be5-481d-bdba-1ef9fc1426fe"
+        }
+      ],
+      "tanggal_mulai": "2025-11-20",
+      "tanggal_selesai": "2025-11-29"
+    }
+  ]
+}

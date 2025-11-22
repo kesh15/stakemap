@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { ProjectType } from "@/types/project";
-import { ColumnDef } from "@tanstack/react-table";
+import { ProjectType } from '@/types/project';
+import { ColumnDef } from '@tanstack/react-table';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { MoreHorizontal } from "lucide-react";
-import { useProjectStore } from "@/store/project-store";
-import { useState } from "react";
-import { ProjectForm } from "./ProjectForm";
+} from '../ui/dropdown-menu';
+import { Button } from '../ui/button';
+import { MoreHorizontal } from 'lucide-react';
+import { useProjectStore } from '@/store/project-store';
+import { useState } from 'react';
+import { ProjectForm } from './ProjectForm';
 
 export const projectColumns: ColumnDef<ProjectType>[] = [
   {
-    accessorKey: "nama_proyek",
-    header: "Nama Proyek",
+    accessorKey: 'nama_proyek',
+    header: 'Nama Proyek',
   },
   {
-    accessorKey: "kategori_proyek",
-    header: "Kategori",
+    accessorKey: 'kategori_proyek',
+    header: 'Kategori',
   },
   {
-    header: "Stakeholder Terlibat",
+    header: 'Stakeholder Terlibat',
     cell: ({ row }) => {
       const project = row.original;
       return (
-        <div className="flex flex-col">
+        <div className='flex flex-col'>
           {project.stakeholder_terlibat.map((s) => (
             <span key={s.id}>{s.nama_stakeholder}</span>
           ))}
@@ -37,10 +37,10 @@ export const projectColumns: ColumnDef<ProjectType>[] = [
     },
   },
   {
-    header: "Average Power",
+    header: 'Average Power',
     cell: ({ row }) => {
       const stakeholder = row.original.stakeholder_terlibat;
-      if (stakeholder.length === 0) return "-";
+      if (stakeholder.length === 0) return '-';
       const avg =
         stakeholder.reduce(
           (acc, curr) => acc + curr.skoring_power_stakeholder,
@@ -50,10 +50,10 @@ export const projectColumns: ColumnDef<ProjectType>[] = [
     },
   },
   {
-    header: "Average Interest",
+    header: 'Average Interest',
     cell: ({ row }) => {
       const stakeholder = row.original.stakeholder_terlibat;
-      if (stakeholder.length === 0) return "-";
+      if (stakeholder.length === 0) return '-';
       const avg =
         stakeholder.reduce(
           (acc, curr) => acc + curr.skoring_interest_stakeholder,
@@ -63,7 +63,7 @@ export const projectColumns: ColumnDef<ProjectType>[] = [
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
       const project = row.original;
@@ -76,15 +76,15 @@ export const projectColumns: ColumnDef<ProjectType>[] = [
 const ProjectAction = ({ data }: { data: ProjectType }) => {
   const deleteProject = useProjectStore((s) => s.removeProject);
   const [openDialog, setOpenDialog] = useState(false);
-  const [mode, setMode] = useState<"read" | "edit">("read");
+  const [mode, setMode] = useState<'read' | 'edit'>('read');
 
   const handleView = () => {
-    setMode("read");
+    setMode('read');
     setOpenDialog(true);
   };
 
   const handleEdit = () => {
-    setMode("edit");
+    setMode('edit');
     setOpenDialog(true);
   };
 
@@ -92,12 +92,12 @@ const ProjectAction = ({ data }: { data: ProjectType }) => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Open menu</span>
             <MoreHorizontal />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align='end'>
           <DropdownMenuItem onClick={handleView}>Lihat Data</DropdownMenuItem>
           <DropdownMenuItem onClick={handleEdit}>Ubah Data</DropdownMenuItem>
           <DropdownMenuItem onClick={() => deleteProject(data.id)}>

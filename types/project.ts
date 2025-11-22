@@ -1,4 +1,4 @@
-import { StakeholderType } from "./stakeholder";
+import { StakeholderType } from './stakeholder';
 
 export interface ProjectType {
   id: string;

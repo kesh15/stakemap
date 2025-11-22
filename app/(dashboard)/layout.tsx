@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/layout/app-sidebar";
-import { AppBreadcrumb } from "@/components/layout/app-breadcrumb";
-import { ToggleMode } from "@/components/layout/toggle-mode";
+} from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/layout/app-sidebar';
+import { AppBreadcrumb } from '@/components/layout/app-breadcrumb';
+import { ToggleMode } from '@/components/layout/toggle-mode';
 
 export default function DashboardLayout({
   children,
@@ -18,12 +18,12 @@ export default function DashboardLayout({
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 items-center gap-2 sticky top-0 px-4">
-          <SidebarTrigger className="-ml-1" />
+        <header className='sticky top-0 flex h-16 items-center gap-2 px-4'>
+          <SidebarTrigger className='-ml-1' />
           <AppBreadcrumb />
-          <ToggleMode className="ml-auto" />
+          <ToggleMode className='ml-auto' />
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4">{children}</main>
+        <main className='flex flex-1 flex-col gap-4 p-4'>{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

@@ -1,9 +1,9 @@
-"use client";
-import "leaflet/dist/leaflet.css";
-import { DataTable } from "@/components/data-table";
-import { projectColumns } from "@/components/proyek/project-columns";
-import { Button } from "@/components/ui/button";
-import { useProjectStore } from "@/store/project-store";
+'use client';
+import 'leaflet/dist/leaflet.css';
+import { DataTable } from '@/components/data-table';
+import { projectColumns } from '@/components/proyek/project-columns';
+import { Button } from '@/components/ui/button';
+import { useProjectStore } from '@/store/project-store';
 import {
   Circle,
   MapContainer,
@@ -11,20 +11,20 @@ import {
   Popup,
   TileLayer,
   useMap,
-} from "react-leaflet";
-import { ProjectForm } from "@/components/proyek/ProjectForm";
-import { useState, useEffect } from "react";
-import L from "leaflet";
-import { ProjectType } from "@/types/project";
+} from 'react-leaflet';
+import { ProjectForm } from '@/components/proyek/ProjectForm';
+import { useState, useEffect } from 'react';
+import L from 'leaflet';
+import { ProjectType } from '@/types/project';
 
 // Fix for default marker icon in Next.js
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+    'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
 // Component to update map center
@@ -42,18 +42,22 @@ function MapUpdater({ center }: { center: [number, number] }) {
 }
 
 export default function Home() {
-  const { projects } = useProjectStore();
+  const { projects, fetchProjects } = useProjectStore();
   const [open, setOpen] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(
     null
   );
   const [mapCenter, setMapCenter] = useState<[number, number] | null>(null);
 
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
+
   // Parse koordinat string to [lat, lng] tuple
   const parseKoordinat = (koordinatString: string): [number, number] | null => {
     try {
       const [lat, lng] = koordinatString
-        .split(",")
+        .split(',')
         .map((coord) => parseFloat(coord.trim()));
       if (isNaN(lat) || isNaN(lng)) return null;
       return [lat, lng];
@@ -83,18 +87,18 @@ export default function Home() {
   console.log(projects);
 
   return (
-    <main className="p-6 space-y-6">
-      <div style={{ position: "relative", zIndex: 0 }}>
+    <main className='space-y-6 p-6'>
+      <div style={{ position: 'relative', zIndex: 0 }}>
         <MapContainer
           center={currentCenter}
           zoom={13}
           scrollWheelZoom={true}
-          style={{ height: "50vh", width: "100%" }}
+          style={{ height: '50vh', width: '100%' }}
         >
           <MapUpdater center={currentCenter} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
           {/* Render Circle with radius in meters for each project */}
           {projects.map((project) => {
@@ -111,23 +115,23 @@ export default function Home() {
                   center={position}
                   radius={project.radius}
                   pathOptions={{
-                    color: isSelected ? "blue" : "red",
-                    fillColor: isSelected ? "blue" : "red",
+                    color: isSelected ? 'blue' : 'red',
+                    fillColor: isSelected ? 'blue' : 'red',
                     fillOpacity: 0.2,
                   }}
                 />
                 {/* Marker at center point */}
                 <Marker key={`marker-${project.id}`} position={position}>
                   <Popup>
-                    <div className="space-y-1">
-                      <h3 className="font-semibold">{project.nama_proyek}</h3>
-                      <p className="text-sm text-gray-600">
+                    <div className='space-y-1'>
+                      <h3 className='font-semibold'>{project.nama_proyek}</h3>
+                      <p className='text-sm text-gray-600'>
                         {project.alamat_proyek}
                       </p>
-                      <p className="text-sm">
+                      <p className='text-sm'>
                         Kategori: {project.kategori_proyek}
                       </p>
-                      <p className="text-sm">Radius: {project.radius}m</p>
+                      <p className='text-sm'>Radius: {project.radius}m</p>
                     </div>
                   </Popup>
                 </Marker>

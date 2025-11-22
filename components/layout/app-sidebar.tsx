@@ -1,49 +1,49 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { Frame, SquareTerminal } from "lucide-react";
+import * as React from 'react';
+import { Frame, SquareTerminal } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar";
-import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
-import { NavUser } from "./nav-user";
-import { TeamSwitcher } from "./team-switcher";
+} from '@/components/ui/sidebar';
+import { NavMain } from './nav-main';
+import { NavProjects } from './nav-projects';
+import { NavUser } from './nav-user';
+import { TeamSwitcher } from './team-switcher';
 
 // This is sample data.
 const data = {
   user: {
-    name: "Rakesh Bramantyo",
-    email: "designwithkesh@gmail.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: 'Rakesh Bramantyo',
+    email: 'designwithkesh@gmail.com',
+    avatar: '/avatars/shadcn.jpg',
   },
 
   navMain: [
     {
-      title: "Stakeholder",
-      url: "/stakeholder",
+      title: 'Stakeholder',
+      url: '/stakeholder',
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "Kategori Stakeholder",
-          url: "/stakeholder/kategori",
+          title: 'Kategori Stakeholder',
+          url: '/stakeholder/kategori',
         },
         {
-          title: "Daftar Stakeholder",
-          url: "/stakeholder/daftar",
+          title: 'Daftar Stakeholder',
+          url: '/stakeholder/daftar',
         },
       ],
     },
   ],
   projects: [
     {
-      name: "Daftar Proyek",
-      url: "/proyek",
+      name: 'Daftar Proyek',
+      url: '/proyek',
       icon: Frame,
     },
   ],
@@ -51,7 +51,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
         <TeamSwitcher />
       </SidebarHeader>

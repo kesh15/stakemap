@@ -18,7 +18,7 @@ export interface StakeholderType {
 }
 
 export enum KriteriaInterestStakeholderEnum {
-  KURANG = "kurang",
-  CUKUP = "cukup",
-  BAIK = "baik",
+  KURANG = 'kurang',
+  CUKUP = 'cukup',
+  BAIK = 'baik',
 }
