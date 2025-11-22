@@ -70,6 +70,12 @@ export function ProjectForm({
   const [relations, setRelations] = useState<{ from: string; to: string }[]>(
     []
   );
+  const [openTanggalMulai, setOpenTanggalMulai] = useState(false);
+  const [tanggalMulai, setTanggalMulai] = useState<Date | undefined>(undefined);
+  const [openTanggalSelesai, setOpenTanggalSelesai] = useState(false);
+  const [tanggalSelesai, setTanggalSelesai] = useState<Date | undefined>(
+    undefined
+  );
 
   const updateRelation = (index: number, key: "from" | "to", value: string) => {
     const newRelations = [...relations];
@@ -97,16 +103,9 @@ export function ProjectForm({
     return stakeholders.find((s) => s.id === id)?.nama_stakeholder || "";
   };
 
-  const [openTanggalMulai, setOpenTanggalMulai] = useState(false);
-  const [tanggalMulai, setTanggalMulai] = useState<Date | undefined>(undefined);
-
-  const [openTanggalSelesai, setOpenTanggalSelesai] = useState(false);
-  const [tanggalSelesai, setTanggalSelesai] = useState<Date | undefined>(
-    undefined
-  );
-
   const addProject = useProjectStore((s) => s.addProject);
   const updateProject = useProjectStore((s) => s.updateProject);
+  const disabled = mode === "read";
 
   // Populate form with existing data for edit/read mode
   useEffect(() => {
@@ -146,7 +145,7 @@ export function ProjectForm({
       setTanggalSelesai(undefined);
       setRelations([]);
     }
-  }, [data, mode, open]);
+  }, [data, mode, open, setValue, form]);
 
   useEffect(() => {
     // Only auto-initialize relations for create mode
@@ -159,7 +158,7 @@ export function ProjectForm({
       }
       setValue("stakeholder_relations", []);
     }
-  }, [selectedStakeholders, mode]);
+  }, [selectedStakeholders, mode, setValue]);
 
   const onSubmit = (formData: ProjectFormData) => {
     // Convert stakeholder IDs to full stakeholder objects
@@ -168,7 +167,7 @@ export function ProjectForm({
     );
 
     // Create/Update project object
-    const projectData = {
+    const submissionData = {
       id: mode === "edit" && data ? data.id : crypto.randomUUID(),
       nama_proyek: formData.nama_proyek,
       alamat_proyek: formData.alamat_proyek,
@@ -184,11 +183,11 @@ export function ProjectForm({
     };
 
     if (mode === "edit") {
-      updateProject(projectData);
-      console.log("Project updated:", projectData);
+      updateProject(submissionData);
+      console.log("Project updated:", submissionData);
     } else {
-      addProject(projectData);
-      console.log("Project added:", projectData);
+      addProject(submissionData);
+      console.log("Project added:", submissionData);
     }
 
     // Close dialog after successful submission
@@ -218,7 +217,7 @@ export function ProjectForm({
                   id="nama_proyek"
                   placeholder="Nama Proyek"
                   required
-                  disabled={mode === "read"}
+                  disabled={disabled}
                 />
               </Field>
               {errors.nama_proyek && (
@@ -235,7 +234,7 @@ export function ProjectForm({
                   id="alamat_proyek"
                   placeholder="Alamat Proyek"
                   required
-                  disabled={mode === "read"}
+                  disabled={disabled}
                 />
               </Field>
               {errors.alamat_proyek && (
@@ -253,7 +252,7 @@ export function ProjectForm({
                   id="koordinat"
                   placeholder="Koordinat"
                   required
-                  disabled={mode === "read"}
+                  disabled={disabled}
                 />
               </Field>
               {errors.koordinat && (
@@ -271,7 +270,7 @@ export function ProjectForm({
                   id="radius"
                   placeholder="Radius"
                   required
-                  disabled={mode === "read"}
+                  disabled={disabled}
                 />
               </Field>
               {errors.radius && (
@@ -289,7 +288,7 @@ export function ProjectForm({
                   id="kategori_proyek"
                   placeholder="Kategori"
                   required
-                  disabled={mode === "read"}
+                  disabled={disabled}
                 />
               </Field>
               {errors.kategori_proyek && (
@@ -303,7 +302,7 @@ export function ProjectForm({
                 <FieldLabel htmlFor="stakeholder_terlibat">
                   Stakeholder Terlibat
                 </FieldLabel>
-                {mode === "read" ? (
+                {disabled ? (
                   <div className="flex flex-col gap-1">
                     {selectedStakeholders.map((id) => (
                       <span key={id} className="text-sm">
@@ -358,7 +357,7 @@ export function ProjectForm({
                     <Select
                       value={rel.from}
                       onValueChange={(v) => updateRelation(index, "from", v)}
-                      disabled={mode === "read"}
+                      disabled={disabled}
                     >
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Pilih stakeholder" />
@@ -377,7 +376,7 @@ export function ProjectForm({
                     <Select
                       value={rel.to}
                       onValueChange={(v) => updateRelation(index, "to", v)}
-                      disabled={mode === "read"}
+                      disabled={disabled}
                     >
                       <SelectTrigger className="w-48">
                         <SelectValue placeholder="Pilih stakeholder" />
@@ -463,7 +462,7 @@ export function ProjectForm({
                       variant="outline"
                       id="date"
                       className="w-48 justify-between font-normal"
-                      disabled={mode === "read"}
+                      disabled={disabled}
                     >
                       {tanggalSelesai
                         ? tanggalSelesai.toLocaleDateString()
@@ -504,7 +503,7 @@ export function ProjectForm({
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              {mode === "read" ? "Tutup" : "Batal"}
+              {disabled ? "Tutup" : "Batal"}
             </Button>
             {mode !== "read" && (
               <Button type="submit">

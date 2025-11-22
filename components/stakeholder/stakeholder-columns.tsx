@@ -11,6 +11,8 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
+import { StakeholderForm } from "./StakeholderForm";
 
 export const stakeholderColumns: ColumnDef<StakeholderType>[] = [
   {
@@ -49,10 +51,22 @@ export const stakeholderColumns: ColumnDef<StakeholderType>[] = [
 ];
 
 const StakeholderAction = ({ data }: { data: StakeholderType }) => {
-  const setModal = useStakeholderStore((s) => s.setModal);
   const deleteStakeholder = useStakeholderStore((s) => s.removeStakeholder);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [mode, setMode] = useState<"read" | "edit">("read");
+
+   const handleView = () => {
+     setMode("read");
+     setOpenDialog(true);
+   };
+
+   const handleEdit = () => {
+     setMode("edit");
+     setOpenDialog(true);
+   };
 
   return (
+    <>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-8 w-8 p-0">
@@ -61,16 +75,20 @@ const StakeholderAction = ({ data }: { data: StakeholderType }) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setModal(true, "read", data)}>
-          Lihat Data
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setModal(true, "edit", data)}>
-          Ubah Data
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleView}>Lihat Data</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleEdit}>Ubah Data</DropdownMenuItem>
         <DropdownMenuItem onClick={() => deleteStakeholder(data.id)}>
           Hapus Data
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    <StakeholderForm
+            open={openDialog}
+            onOpenChange={setOpenDialog}
+            mode={mode}
+            data={data}
+          />
+    
+    </>
   );
 };

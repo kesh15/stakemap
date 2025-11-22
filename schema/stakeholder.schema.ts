@@ -34,4 +34,3 @@ export const StakeholderSchema = z.object({
 });
 
 export type StakeholderFormData = z.infer<typeof StakeholderSchema>;
-export type StakeholderInput = z.input<typeof StakeholderSchema>;
