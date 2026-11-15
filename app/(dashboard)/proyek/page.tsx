@@ -17,8 +17,6 @@ import { useState, useEffect } from 'react';
 import L from 'leaflet';
 import { ProjectType } from '@/types/project';
 
-// Fix for default marker icon in Next.js
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
