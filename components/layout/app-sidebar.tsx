@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Frame, SquareTerminal } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import {
   Sidebar,
   SidebarContent,
@@ -50,6 +51,15 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: session } = useSession();
+  const currentUser = session?.user
+    ? {
+        name: session.user.name || 'User',
+        email: session.user.email || '',
+        avatar: session.user.image || '/avatars/shadcn.jpg',
+      }
+    : data.user;
+
   return (
     <Sidebar collapsible='icon' {...props}>
       <SidebarHeader>
@@ -60,7 +70,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={currentUser} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

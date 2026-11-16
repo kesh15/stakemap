@@ -10,7 +10,7 @@ type ProjectStore = {
   fetchProjects: () => Promise<void>;
 };
 
-const API_URL = 'http://localhost:3001/projects';
+const API_URL = '/api/projects';
 
 export const useProjectStore = create<ProjectStore>()((set) => ({
   projects: [],

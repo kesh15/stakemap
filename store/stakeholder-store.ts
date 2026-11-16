@@ -12,7 +12,7 @@ type StakeholderStore = {
   removeStakeholder: (id: string) => Promise<void>;
 };
 
-const API_URL = 'http://localhost:3001/stakeholders';
+const API_URL = '/api/stakeholders';
 
 export const useStakeholderStore = create<StakeholderStore>((set) => ({
   stakeholders: [],
