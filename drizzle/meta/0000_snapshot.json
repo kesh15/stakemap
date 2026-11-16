@@ -1,0 +1,233 @@
+{
+  "id": "db34d211-c93d-4d63-bf71-bbd89c70c735",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.projects": {
+      "name": "projects",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nama_proyek": {
+          "name": "nama_proyek",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alamat_proyek": {
+          "name": "alamat_proyek",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "koordinat": {
+          "name": "koordinat",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "radius": {
+          "name": "radius",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kategori_proyek": {
+          "name": "kategori_proyek",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stakeholder_terlibat": {
+          "name": "stakeholder_terlibat",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "stakeholder_relations": {
+          "name": "stakeholder_relations",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "tanggal_mulai": {
+          "name": "tanggal_mulai",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tanggal_selesai": {
+          "name": "tanggal_selesai",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.stakeholders": {
+      "name": "stakeholders",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "nama_stakeholder": {
+          "name": "nama_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kontak_stakeholder": {
+          "name": "kontak_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alamat_stakeholder": {
+          "name": "alamat_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kelurahan": {
+          "name": "kelurahan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kecamatan": {
+          "name": "kecamatan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "skoring_power_stakeholder": {
+          "name": "skoring_power_stakeholder",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "skoring_interest_stakeholder": {
+          "name": "skoring_interest_stakeholder",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kegiatan_stakeholder": {
+          "name": "kegiatan_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tindak_lanjut_stakeholder": {
+          "name": "tindak_lanjut_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kriteria_interest_stakeholder": {
+          "name": "kriteria_interest_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kategori_stakeholder": {
+          "name": "kategori_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "strategi_stakeholder": {
+          "name": "strategi_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kriteria_influence_stakeholder": {
+          "name": "kriteria_influence_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kriteria_involvement_stakeholder": {
+          "name": "kriteria_involvement_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "keterikatan_stakeholder": {
+          "name": "keterikatan_stakeholder",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
