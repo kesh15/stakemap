@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
+import { guardApi } from '@/lib/dal';
 import { db } from '@/db';
 import { stakeholders } from '@/db/schema';
 import { desc } from 'drizzle-orm';
 
 export async function GET() {
+  const { error } = await guardApi('stakeholder:read');
+  if (error) return error;
+
   try {
     const data = await db
       .select()
@@ -20,6 +24,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const { error } = await guardApi('stakeholder:create');
+  if (error) return error;
+
   try {
     const body = await request.json();
     const [newItem] = await db.insert(stakeholders).values(body).returning();

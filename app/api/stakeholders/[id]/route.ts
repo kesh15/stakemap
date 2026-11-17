@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { guardApi } from '@/lib/dal';
 import { db } from '@/db';
 import { stakeholders } from '@/db/schema';
 import { eq } from 'drizzle-orm';
@@ -7,6 +8,9 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error } = await guardApi('stakeholder:update');
+  if (error) return error;
+
   try {
     const { id } = await params;
     const body = await request.json();
@@ -37,6 +41,9 @@ export async function DELETE(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error } = await guardApi('stakeholder:delete');
+  if (error) return error;
+
   try {
     const { id } = await params;
     const [deletedItem] = await db

@@ -1,8 +1,9 @@
 import { betterAuth } from 'better-auth';
 import { admin } from 'better-auth/plugins';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { db } from '@/db'; // your drizzle instance
+import { db } from '@/db';
 import * as schema from '@/db/schema';
+import { ac, roles } from '@/lib/admin-access';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -16,8 +17,12 @@ export const auth = betterAuth({
   },
   plugins: [
     admin({
+      ac,
+      roles,
       defaultRole: 'user',
       adminRoles: ['super_admin'],
     }),
   ],
 });
+
+export type Session = typeof auth.$Infer.Session;
