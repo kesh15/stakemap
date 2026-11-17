@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  BadgeCheck,
-  Bell,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from 'lucide-react';
-import { signOut } from 'next-auth/react';
+import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -26,6 +18,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { signOut } from '@/lib/auth-client';
 
 export function NavUser({
   user,
@@ -98,7 +91,9 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/api/auth/signin' })}>
+            <DropdownMenuItem
+              onClick={() => signOut({ callbackUrl: '/api/auth/signin' })}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>

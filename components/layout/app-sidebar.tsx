@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Frame, SquareTerminal } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+
 import {
   Sidebar,
   SidebarContent,
@@ -14,6 +14,7 @@ import { NavMain } from './nav-main';
 import { NavProjects } from './nav-projects';
 import { NavUser } from './nav-user';
 import { TeamSwitcher } from './team-switcher';
+import { useSession } from '@/lib/auth-client';
 
 // This is sample data.
 const data = {

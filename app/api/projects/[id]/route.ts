@@ -17,10 +17,7 @@ export async function PUT(
       .returning();
 
     if (!updatedItem) {
-      return NextResponse.json(
-        { error: 'Project not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
 
     return NextResponse.json(updatedItem);
@@ -45,10 +42,7 @@ export async function DELETE(
       .returning();
 
     if (!deletedItem) {
-      return NextResponse.json(
-        { error: 'Project not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
 
     return NextResponse.json(deletedItem);
