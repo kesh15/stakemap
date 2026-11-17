@@ -11,8 +11,10 @@ import {
 } from '@/components/ui/sidebar';
 
 export function NavProjects({
+  label = 'Proyek',
   projects,
 }: {
+  label?: string;
   projects: {
     name: string;
     url: string;
@@ -21,7 +23,7 @@ export function NavProjects({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Proyek</SidebarGroupLabel>
+      <SidebarGroupLabel>{label}</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
