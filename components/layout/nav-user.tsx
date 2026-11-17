@@ -1,7 +1,7 @@
 'use client';
 
 import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
-
+import { useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -30,6 +30,7 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const router = useRouter();
 
   return (
     <SidebarMenu>
@@ -92,7 +93,11 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() => signOut({ callbackUrl: '/api/auth/signin' })}
+              onClick={() =>
+                signOut({
+                  fetchOptions: { onSuccess: () => router.push('/login') },
+                })
+              }
             >
               <LogOut />
               Log out

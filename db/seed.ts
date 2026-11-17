@@ -5,10 +5,10 @@ import { projects, stakeholders } from './schema';
 
 async function seed() {
   console.log('🌱 Starting seed...');
-  const dbJsonPath = path.resolve(process.cwd(), 'db.json');
+  const dbJsonPath = path.resolve(process.cwd(), 'db/mock-data.json');
 
   if (!fs.existsSync(dbJsonPath)) {
-    console.error('db.json not found!');
+    console.error('db/mock-data.json not found!');
     return;
   }
 
