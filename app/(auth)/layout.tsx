@@ -8,7 +8,7 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Already signed in → no reason to see login/signup.
+  // Already signed in → no reason to see the login page.
   const session = await auth.api.getSession({ headers: await headers() });
   if (session) redirect('/');
 

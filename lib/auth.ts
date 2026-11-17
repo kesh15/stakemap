@@ -10,5 +10,7 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    // No public sign-up: only the super admin creates accounts.
+    disableSignUp: true,
   },
 });
