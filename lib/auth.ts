@@ -1,4 +1,5 @@
 import { betterAuth } from 'better-auth';
+import { admin } from 'better-auth/plugins';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { db } from '@/db'; // your drizzle instance
 import * as schema from '@/db/schema';
@@ -13,4 +14,10 @@ export const auth = betterAuth({
     // No public sign-up: only the super admin creates accounts.
     disableSignUp: true,
   },
+  plugins: [
+    admin({
+      defaultRole: 'user',
+      adminRoles: ['super_admin'],
+    }),
+  ],
 });

@@ -8,7 +8,9 @@ export const stakeholders = pgTable('stakeholders', {
   kelurahan: text('kelurahan').notNull(),
   kecamatan: text('kecamatan').notNull(),
   skoring_power_stakeholder: integer('skoring_power_stakeholder').notNull(),
-  skoring_interest_stakeholder: integer('skoring_interest_stakeholder').notNull(),
+  skoring_interest_stakeholder: integer(
+    'skoring_interest_stakeholder'
+  ).notNull(),
   kegiatan_stakeholder: text('kegiatan_stakeholder').notNull(),
   tindak_lanjut_stakeholder: text('tindak_lanjut_stakeholder').notNull(),
   kriteria_interest_stakeholder: text('kriteria_interest_stakeholder'),

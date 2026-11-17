@@ -2,8 +2,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First try to install Node Version Manager: 
+First try to install Node Version Manager:
 https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating
+
 ```bash
 nvm use
 # or install mannualy
@@ -29,7 +30,6 @@ I use JSON Server to act like database and API:
 ```bash
 npm run json-server
 ```
-
 
 ## Learn More
 

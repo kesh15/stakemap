@@ -48,7 +48,7 @@ export default function Home() {
   const [mapCenter, setMapCenter] = useState<[number, number] | null>(null);
 
   useEffect(() => {
-  fetchProjects();
+    fetchProjects();
   }, [fetchProjects]);
 
   // Parse koordinat string to [lat, lng] tuple

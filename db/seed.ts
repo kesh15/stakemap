@@ -29,14 +29,18 @@ async function seed() {
           kelurahan: s.kelurahan ?? '',
           kecamatan: s.kecamatan ?? '',
           skoring_power_stakeholder: Number(s.skoring_power_stakeholder) || 0,
-          skoring_interest_stakeholder: Number(s.skoring_interest_stakeholder) || 0,
+          skoring_interest_stakeholder:
+            Number(s.skoring_interest_stakeholder) || 0,
           kegiatan_stakeholder: s.kegiatan_stakeholder ?? '',
           tindak_lanjut_stakeholder: s.tindak_lanjut_stakeholder ?? '',
-          kriteria_interest_stakeholder: s.kriteria_interest_stakeholder ?? null,
+          kriteria_interest_stakeholder:
+            s.kriteria_interest_stakeholder ?? null,
           kategori_stakeholder: s.kategori_stakeholder ?? null,
           strategi_stakeholder: s.strategi_stakeholder ?? null,
-          kriteria_influence_stakeholder: s.kriteria_influence_stakeholder ?? null,
-          kriteria_involvement_stakeholder: s.kriteria_involvement_stakeholder ?? null,
+          kriteria_influence_stakeholder:
+            s.kriteria_influence_stakeholder ?? null,
+          kriteria_involvement_stakeholder:
+            s.kriteria_involvement_stakeholder ?? null,
           keterikatan_stakeholder: s.keterikatan_stakeholder ?? null,
         })
         .onConflictDoNothing();
