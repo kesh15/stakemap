@@ -8,11 +8,15 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-secret}
       POSTGRES_DB: ${DATABASE_NAME:-stakemap_db}
     ports:
-      - "${DATABASE_PORT:-5432}:5432"
+      - '${DATABASE_PORT:-5435}:5432'
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-admin} -d ${DATABASE_NAME:-stakemap_db}"]
+      test:
+        [
+          'CMD-SHELL',
+          'pg_isready -U ${DATABASE_USERNAME:-admin} -d ${DATABASE_NAME:-stakemap_db}',
+        ]
       interval: 5s
       timeout: 5s
       retries: 5
