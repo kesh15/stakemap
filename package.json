@@ -2,6 +2,7 @@
   "name": "stakemap",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@12.21.0",
   "scripts": {
     "dev": "next dev",
     "json-server": "json-server --watch db/mock-data.json --port 3001",
