@@ -33,7 +33,7 @@ import {
 } from '@/components/ui/table';
 
 interface DataTableProps<TData, TValue> {
-  columns: Array<ColumnDef<TData, TValue>>;
+  columns?: Array<ColumnDef<TData, TValue>>;
   data: TData[];
   onRowClick?: (row: TData) => void;
 }
@@ -51,9 +51,20 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const activeColumns = React.useMemo(() => {
+    if (columns) return columns;
+    if (!data || data.length === 0) return [];
+    return Object.keys(data[0] as Record<string, unknown>)
+      .filter((key) => key !== 'id')
+      .map((key) => ({
+        accessorKey: key,
+        header: key.charAt(0).toUpperCase() + key.slice(1),
+      })) as ColumnDef<TData, TValue>[];
+  }, [columns, data]);
+
   const table = useReactTable({
     data,
-    columns,
+    columns: activeColumns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
@@ -152,7 +163,7 @@ export function DataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={columns.length}
+                  colSpan={activeColumns.length}
                   className='h-24 text-center'
                 >
                   No results.

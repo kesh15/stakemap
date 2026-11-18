@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Frame, KeyRound, SquareTerminal, Users } from 'lucide-react';
+import { Frame, KeyRound, LayoutDashboard, SquareTerminal, Users } from 'lucide-react';
 
 import {
   Sidebar,
@@ -16,6 +16,14 @@ import { NavUser } from './nav-user';
 import { TeamSwitcher } from './team-switcher';
 import { useAuthz } from '@/components/providers/authz-provider';
 import type { Permission } from '@/lib/permissions';
+
+const platformMenu = [
+  {
+    name: 'Dashboard',
+    url: '/',
+    icon: LayoutDashboard,
+  },
+];
 
 // Each entry declares the permission needed to SEE it. Hiding is cosmetic;
 // pages and APIs enforce the same permission on the server.
@@ -70,6 +78,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
+        <NavProjects label='Platform' projects={platformMenu} />
         {visibleMain.length > 0 && <NavMain items={visibleMain} />}
         {visibleProjects.length > 0 && (
           <NavProjects projects={visibleProjects} />

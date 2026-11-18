@@ -19,10 +19,12 @@ export default function Page() {
   }, [fetchStakeholders]);
 
   return (
-    <main className='space-y-6 p-6'>
-      <Button onClick={() => setOpen(true)}>Tambah Stakeholder</Button>
+    <div className='flex flex-1 flex-col gap-6 p-4 md:p-6'>
+      <Button onClick={() => setOpen(true)} className='w-fit'>
+        Tambah Stakeholder
+      </Button>
       <DataTable columns={stakeholderColumns} data={stakeholders} />
       <StakeholderForm open={open} onOpenChange={setOpen} />
-    </main>
+    </div>
   );
 }

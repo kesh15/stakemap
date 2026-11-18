@@ -1,11 +1,9 @@
 import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/layout/app-sidebar';
-import { AppBreadcrumb } from '@/components/layout/app-breadcrumb';
-import { ToggleMode } from '@/components/layout/toggle-mode';
+import { AppSidebar } from '@/components/app-sidebar';
+import { SiteHeader } from '@/components/site-header';
 import { AuthzProvider } from '@/components/providers/authz-provider';
 import { getPermissions, isSuperAdmin, requireUser } from '@/lib/dal';
 
@@ -27,15 +25,25 @@ export default async function DashboardLayout({
         permissions: [...permissions],
       }}
     >
-      <SidebarProvider>
-        <AppSidebar />
+      <SidebarProvider
+        style={
+          {
+            '--sidebar-width': 'calc(var(--spacing) * 72)',
+            '--header-height': 'calc(var(--spacing) * 12)',
+          } as React.CSSProperties
+        }
+      >
+        <AppSidebar
+          variant='inset'
+          user={{
+            name,
+            email,
+            avatar: image ?? '/avatars/shadcn.jpg',
+          }}
+        />
         <SidebarInset>
-          <header className='sticky top-0 flex h-16 items-center gap-2 px-4'>
-            <SidebarTrigger className='-ml-1' />
-            <AppBreadcrumb />
-            <ToggleMode className='ml-auto' />
-          </header>
-          <main className='flex flex-1 flex-col gap-4 p-4'>{children}</main>
+          <SiteHeader />
+          <div className='flex flex-1 flex-col'>{children}</div>
         </SidebarInset>
       </SidebarProvider>
     </AuthzProvider>

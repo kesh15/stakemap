@@ -85,7 +85,7 @@ export default function Home() {
   console.log(projects);
 
   return (
-    <main className='space-y-6 p-6'>
+    <div className='flex flex-1 flex-col gap-6 p-4 md:p-6'>
       <div style={{ position: 'relative', zIndex: 0 }}>
         <MapContainer
           center={currentCenter}
@@ -145,6 +145,6 @@ export default function Home() {
         onRowClick={handleRowClick}
       />
       <ProjectForm open={open} onOpenChange={setOpen} />
-    </main>
+    </div>
   );
 }
